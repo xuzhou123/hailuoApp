@@ -1,0 +1,255 @@
+
+
+
+
+.Banner3 {
+    -webkit-transform: translateX(-100%) translateY(0);
+    -moz-transform: translateX(-100%) translateY(0);
+    -ms-transform: translateX(-100%) translateY(0);
+    -o-transform: translateX(-100%) translateY(0);
+    transform: translateX(-100%) translateY(0)
+}
+
+
+.Banner2 {
+    position: absolute;
+    left: 0;
+    width: 180px;
+    height: 40px;
+    line-height: 40px;
+    /*background: url(../img/Banner-bgd886ae.png) 0 100% no-repeat;*/
+    /*-moz-background-size: 100% 100%;*/
+    /*background-size: 100% 100%;*/
+    background: rgba(158,146,134,0.4);
+    border-radius: 0.4rem;
+/*    -webkit-transform: translateX(-100%) translateY(0);
+    -moz-transform: translateX(-100%) translateY(0);
+    -ms-transform: translateX(-100%) translateY(0);
+    -o-transform: translateX(-100%) translateY(0);
+    transform: translateX(-100%) translateY(0)*/
+}
+
+.Banner3.active {
+    -webkit-animation: h1 .6s ease-in-out;
+    -moz-animation: h1 .6s ease-in-out;
+    -o-animation: h1 .6s ease-in-out;
+    animation: h1 .6s ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards
+}
+
+.Banner2 .Banner-ava {
+    float: left;
+    width: 32px;
+    height: 32px;
+    margin: 4px 10px;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px
+}
+
+.Banner2 .Banner-text {
+    float: left;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-width: 146px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.Banner2 .Banner-text .Banner-text-nick {
+    font-size: 14px;
+    line-height: 24px;
+    color: #fff
+}
+
+.Banner2 .Banner-text .Banner-text-tip {
+    font-size: 12px;
+    line-height: 12px;
+    color: #fed960
+}
+
+.Banner2 .Banner-gift {
+    position: absolute;
+    left: 123px;
+    bottom: 12px;
+    width: 48px;
+    height: 48px
+}
+
+.Banner2 .Banner-hittimes {
+    position: absolute;
+    line-height: 1;
+    bottom: 20px;
+    left: 185px;
+    font-size: 0;
+    white-space: nowrap;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: left bottom;
+    -moz-transform-origin: left bottom;
+    -ms-transform-origin: left bottom;
+    -o-transform-origin: left bottom;
+    transform-origin: left bottom;
+    -webkit-animation: i .2s ease-in-out forwards;
+    -moz-animation: i .2s ease-in-out forwards;
+    -o-animation: i .2s ease-in-out forwards;
+    animation: i .2s ease-in-out forwards;
+    -webkit-animation-delay: .5s;
+    -moz-animation-delay: .5s;
+    -o-animation-delay: .5s;
+    animation-delay: .5s
+}
+
+.Banner2 .Banner-hittimes.hit {
+    -webkit-animation-delay: 0s;
+    -moz-animation-delay: 0s;
+    -o-animation-delay: 0s;
+    animation-delay: 0s
+}
+
+.Banner2 .Banner-hittimes {
+    width: 20px;
+    height: 20px;
+}
+.Banner2 .Banner-hittimes em{
+    font-size: 16px;
+    color: #fff;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px #fff;
+}
+.Banner2 .Banner-hittimes i{
+    font-size: 28px;
+    font-style: italic;
+    color: #fff;
+    position: relative;
+    top:5px;
+}
+
+
+.Banner2 .Banner-hittimes .iamcenter{
+    -webkit-animation: h3 0.7s linear;
+    -moz-animation: h3 0.7s linear;
+    -o-animation: h3 0.7s linear;
+    animation: h3 0.7s linear;
+}
+
+@-webkit-keyframes h3 {
+    from{
+        font-size: 28px ;
+    }
+
+    to {
+        font-size: 50px ;
+    }
+}
+/*.Banner2 .Banner-hittimes .n.n0 {*/
+    /*background-image: url(../img/Banner-icon-09400a9.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n1 {*/
+    /*background-image: url(../img/Banner-icon-1d7dfc9.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n2 {*/
+    /*background-image: url(../img/Banner-icon-21892d9.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n3 {*/
+    /*background-image: url(../img/Banner-icon-3ead898.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n4 {*/
+    /*background-image: url(../img/Banner-icon-40835c5.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n5 {*/
+    /*background-image: url(../img/Banner-icon-5fe8d5e.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n6 {*/
+    /*background-image: url(../img/Banner-icon-6ed3358.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n7 {*/
+    /*background-image: url(../img/Banner-icon-73d44e6.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n8 {*/
+    /*background-image: url(../img/Banner-icon-8efc6a7.png)*/
+/*}*/
+
+/*.Banner2 .Banner-hittimes .n.n9 {*/
+    /*background-image: url(../img/Banner-icon-9145a3e.png)*/
+/*}*/
+
+
+@-webkit-keyframes h1 {
+    0% {
+        -webkit-transform: translateX(-100%) translateY(0);
+        transform: translateX(-100%) translateY(0)
+    }
+
+    to {
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
+
+@-moz-keyframes h1 {
+    0% {
+        -moz-transform: translateX(-100%) translateY(0);
+        transform: translateX(-100%) translateY(0)
+    }
+
+    to {
+        -moz-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
+
+@-o-keyframes h1 {
+    0% {
+        -o-transform: translateX(-100%) translateY(0);
+        transform: translateX(-100%) translateY(0)
+    }
+
+    to {
+        -o-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
+
+@keyframes h1 {
+    0% {
+        -webkit-transform: translateX(-100%) translateY(0);
+        -moz-transform: translateX(-100%) translateY(0);
+        -o-transform: translateX(-100%) translateY(0);
+        transform: translateX(-100%) translateY(0)
+    }
+
+    to {
+        -webkit-transform: translateX(0) translateY(0);
+        -moz-transform: translateX(0) translateY(0);
+        -o-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0)
+    }
+}
