@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="load-svga" v-show="visible">
+    <div class="load-svga" v-show="false">
       <div class="load-svga__title">特效预加载中,请稍后...({{progress.toFixed(2)}}%)</div>
       <mt-progress :value="progress" :bar-height="5"></mt-progress>
     </div>
-    <div class="pwd_info" v-show="visible"></div>
+    <div class="pwd_info" v-show="false"></div>
   </div>
 </template>
 
