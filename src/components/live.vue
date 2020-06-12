@@ -39,8 +39,22 @@
         </div>-->
         <!-- pk结束 -->
 
+        <!-- x-pk -->
+        <div class="x-pk" v-if="pkflag">
+          <div class="pk-content">
+            <div class="blood-bar">
+              <div class="blood blood-l" :style="{width:'70%'}">
+                <span style="display: inline-block;margin-left:0.2rem;">11113331</span>
+              </div>
+              <div class="blood blood-r" :style="{width:'30%'}">
+                <span>33333333</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- 直播 -->
-        <div id="video" class="video-con" @click="videoflag">
+        <div id="video" class="video-con" v-if="!pkflag" @click="videoflag">
           <video
             autoplay="autoplay"
             ref="html5player"
@@ -53,7 +67,14 @@
             :src="hls"
           ></video>
         </div>
-        <div class="video_ui" style="display: block" ref="video_ui" @click="playvideo">
+        <!-- 播放图标 -->
+        <div
+          class="video_ui"
+          style="display: block"
+          ref="video_ui"
+          v-if="!pkflag"
+          @click="playvideo"
+        >
           <a class="new_play_btn"></a>
         </div>
         <div id="chatArea" class="chat_area" ref="chat_area" @click="videoflag()">
@@ -443,7 +464,7 @@ export default {
 
         if (msgmethod == "SendMsg") {
           //聊天信息
-          console.log(data.msg[0])
+          console.log(data.msg[0]);
           this.live.push(data.msg[0]);
           this.$refs.chat_area.scrollTop = this.$refs.chat_area.scrollHeight;
           if (data.msg[0].ct.car && data.msg[0].ct.car.id != 0) {
@@ -570,9 +591,10 @@ export default {
         _this.giftamite();
       }, 100);
     });
-    setTimeout(e => {
-      _this.pkflag = false;
-    }, _this.pktime * 1000);
+    // 延迟pk
+    // setTimeout(e => {
+    //   _this.pkflag = false;
+    // }, _this.pktime * 1000);
   },
   beforeRouteLeave(to, from, next) {
     next();
@@ -836,8 +858,11 @@ export default {
       this.flag = true;
       this.getPerson("kkk");
     },
+    // 关闭直播间
     closegif() {
-      this.$refs.html5player.pause();
+      if (!this.pkflag) {
+        this.$refs.html5player.pause();
+      }
       this.goRouter("/?i=0");
     },
     videoflag() {
@@ -924,7 +949,7 @@ export default {
               }
               //return H + ':' + i + ':' + s;
               return H + ":" + i;
-            };
+            }
             var lwcount = dat.content.liwu;
             var roomnumq = dat.content.quid; //请求连麦者id
             var roomnumb = dat.content.buid; //被连麦者id
@@ -1246,7 +1271,9 @@ export default {
           } else {
             _this.showM(dat.msg);
           }
-          _this.$refs.html5player.style.display = "block";
+          if (!_this.pkflag) {
+            _this.$refs.html5player.style.display = "block";
+          }
         });
     },
     Follow() {
@@ -1702,7 +1729,50 @@ export default {
     margin-top: 0.23rem;
   }
 }
-
+// x-pk start
+.x-pk {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: block;
+  background: #000;
+  .pk-content {
+    position: absolute;
+    top: 14%;
+    right: 0;
+    bottom: 36%;
+    left: 0;
+    background: #fff;
+    .blood-bar {
+      font-size: 0;
+      height: 0.5rem;
+      color: #fff;
+      .blood {
+        height: 100%;
+        line-height: 0.5rem;
+        display: inline-block;
+        font-size: 0.3rem;
+      }
+      .blood-l {
+        background-image: linear-gradient(to right, #f42f4e, #f33be0);
+        text-align: left;
+        span {
+          display: inline-block;
+          margin-left: 0.2rem;
+        }
+      }
+      .blood-r {
+        background-image: linear-gradient(to right, #7de0ff, #636bff);
+        text-align: right;
+        span {
+          display: inline-block;
+          margin-right: 0.2rem;
+        }
+      }
+    }
+  }
+}
+// x-pk end
 #live {
   position: relative;
 }
