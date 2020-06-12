@@ -44,7 +44,7 @@
           <div class="pk-content">
             <div class="blood-bar">
               <div class="blood blood-l" :style="{width:'70%'}">
-                <span style="display: inline-block;margin-left:0.2rem;">11113331</span>
+                <span>11113331</span>
               </div>
               <div class="blood blood-r" :style="{width:'30%'}">
                 <span>33333333</span>
