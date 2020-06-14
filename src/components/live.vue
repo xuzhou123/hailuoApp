@@ -42,12 +42,88 @@
         <!-- x-pk -->
         <div class="x-pk" v-if="pkflag">
           <div class="pk-content">
+            <!-- pk血条 -->
             <div class="blood-bar">
               <div class="blood blood-l" :style="{width:'70%'}">
                 <span>11113331</span>
               </div>
               <div class="blood blood-r" :style="{width:'30%'}">
                 <span>33333333</span>
+              </div>
+            </div>
+            <!-- pk画面 -->
+            <div class="video-box">
+              <div class="video-common video-l">
+                <video
+                  autoplay="autoplay"
+                  ref="html5player"
+                  preload="auto"
+                  x5-video-player-type="h5"
+                  x-webkit-airplay="true"
+                  :poster="liveCt.avatar"
+                  webkit-playsinline="true"
+                  playsinline="true"
+                  :src="hls"
+                ></video>
+              </div>
+              <div class="video-common video-r">
+                <video
+                  autoplay="autoplay"
+                  ref="html5player"
+                  preload="auto"
+                  x5-video-player-type="h5"
+                  x-webkit-airplay="true"
+                  :poster="liveCt.avatar"
+                  webkit-playsinline="true"
+                  playsinline="true"
+                  :src="hls"
+                ></video>
+              </div>
+            </div>
+            <!-- 打赏前几名 -->
+            <div class="top-reward">
+              <div class="top-reward-box top-reward-l">
+                <ul>
+                  <li>
+                    <div class="box">
+                      <div class="top">1</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="box">
+                      <div class="top">2</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="box">
+                      <div class="top">3</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="box">
+                      <div class="top">4</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="top-reward-box top-reward-r">
+                <ul>
+                  <li>
+                    <div class="box">
+                      <div class="top">1</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="box">
+                      <div class="top">2</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="box">
+                      <div class="top">3</div>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -1738,9 +1814,9 @@ export default {
   background: #000;
   .pk-content {
     position: absolute;
-    top: 14%;
+    top: 2.3rem;
     right: 0;
-    bottom: 36%;
+    bottom: 240px;
     left: 0;
     background: #fff;
     .blood-bar {
@@ -1767,6 +1843,83 @@ export default {
         span {
           display: inline-block;
           margin-right: 0.2rem;
+        }
+      }
+    }
+    .video-box {
+      height: calc(100% - 1.5rem);
+      background: #ccc;
+      font-size: 0;
+      .video-common {
+        display: inline-block;
+        width: 50%;
+        height: 100%;
+      }
+      .video-l {
+      }
+      .video-r {
+      }
+      video {
+        position: relative;
+        object-fit:cover;
+      }
+    }
+    .top-reward {
+      height: 1rem;
+      background: #eee;
+      font-size: 0;
+      background: linear-gradient(90deg, #66172c 10%, #59204b 30%, #2148d5 90%);
+      .top-reward-box {
+        height: 100%;
+        width: 50%;
+        display: inline-block;
+      }
+      ul {
+        height: 100%;
+        li {
+          height: 100%;
+          .box {
+            width: 0.7rem;
+            height: 0.7rem;
+            margin-top: 0.15rem;
+            border: 0.04rem solid #f03787;
+            border-radius: 0.35rem;
+            box-sizing: border-box;
+            position: relative;
+            font-size: 0.1rem;
+            overflow: hidden;
+            .top {
+              position: absolute;
+              width: 0.4rem;
+              height: 0.2rem;
+              line-height: 0.2rem;
+              text-align: center;
+              background: #f03787;
+              left: 0.11rem;
+              bottom: 0;
+              border-radius: 0.15rem;
+            }
+          }
+        }
+      }
+      .top-reward-l {
+        ul {
+          li {
+            float: left;
+            .box {
+              margin-left: 0.15rem;
+            }
+          }
+        }
+      }
+      .top-reward-r {
+        ul {
+          li {
+            float: right;
+            .box {
+              margin-right: 0.15rem;
+            }
+          }
         }
       }
     }
