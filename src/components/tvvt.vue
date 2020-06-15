@@ -29,10 +29,6 @@
             <!--<p class="p1" v-if="item.islive==1"><img src="../../static/img/m1.png" alt=""></p>-->
             <!--<div class="video_status video_status_living">直播中</div>-->
           </div>
-          <!-- pk 按钮 -->
-          <div class="choose-pk">
-            <img @click.stop="choosePk(item)" src="../../static/img/icon-pk.png" alt />
-          </div>
         </li>
       </ul>
       <p v-show="alling" class="page-infinite-loading">
@@ -47,7 +43,6 @@
 <script>
 import store from "@/store/store";
 import api from "@/constant/api";
-import { MessageBox } from "mint-ui";
 export default {
   //name: "main",
   data() {
@@ -133,14 +128,6 @@ export default {
         _this.page++;
         _this.getLive(true);
       }, 100);
-    },
-    // 邀请pk
-    choosePk(item) {
-      console.log(item)
-      MessageBox.confirm("确定与\"" + item.content + "\"PK吗?").then(action => {
-        alert(action)
-      }).catch(e => {
-      });
     }
   },
   created() {
@@ -410,10 +397,6 @@ header {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-    }
-    .choose-pk {
-      position: absolute;
-      bottom: 1rem;
     }
   }
   li:nth-of-type(even) {

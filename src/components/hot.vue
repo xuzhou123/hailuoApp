@@ -40,6 +40,11 @@
             <div v-if="item.islive==1" class="video_status video_status_living">直播中</div>
             <div v-if="item.islive==2" class="video_status video_status_living">待播</div>
           </div>
+
+          <!-- 是否正在pk标识 -->
+          <div class="pk-flag">
+            <img v-if="true" src="../../static/img/icon-pk.png" alt />
+          </div>
         </li>
       </ul>
       <p v-show="alling" class="page-infinite-loading">
@@ -116,7 +121,7 @@ export default {
     LinkRouter(item) {
       if (item.type === 1 || item.type === "1") {
         this.visible = true;
-        this.id=item.uid;
+        this.id = item.uid;
         return false;
       }
       this.showLiveroom(item.uid);
@@ -436,7 +441,7 @@ export default {
   overflow: hidden;
   margin-top: 0.1%;
   li {
-    width: 100%;
+    width: 50%;
     height: 7.5rem;
     float: left;
     margin-top: 0.6%;
@@ -477,6 +482,12 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+    }
+    .pk-flag {
+      position: absolute;
+      bottom: 1rem;
+      left: 0.2rem;
+      height: 0.5rem;
     }
   }
   /*li:nth-of-type(even){
