@@ -40,7 +40,7 @@
         <!-- pk结束 -->
 
         <!-- x-pk -->
-        <xPk :avatar="liveCt.avatar" :hls="hls" v-if="pkflag" />
+        <xPk :avatar="liveCt.avatar" :hls="hls" @showM="showM" v-if="pkflag" />
 
         <!-- 直播 -->
         <div id="video" class="video-con" v-if="!pkflag" @click="videoflag">
@@ -1206,6 +1206,7 @@ export default {
           }
         });
     },
+    // 判断是否关注了主播
     getis_attention() {
       var _this = this;
       var json = { roomnum: this.videoUrl };

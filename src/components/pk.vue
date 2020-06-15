@@ -31,6 +31,9 @@
             playsinline="true"
             :src="hls"
           ></video>
+          <!-- pk结果 -->
+          <img class="pk-result" v-if="false" src="../../static/img/fail.png" alt />
+          <img class="pk-result" v-if="true" src="../../static/img/victory.png" alt />
         </div>
         <div class="video-common video-r">
           <video
@@ -50,8 +53,17 @@
               <img class="avatar" src="../../static/img/default.jpg" alt />
             </div>
             <span class="name">徐洲啊房价肯定艰苦奋斗JFK大家看法</span>
-            <img class="add-follow" src="../../static/img/add-follow.png" alt />
+            <img
+              class="add-follow"
+              @click="setFollow(enemyInfo.videoUrl)"
+              v-if="is_attention!=1"
+              src="../../static/img/add-follow.png"
+              alt
+            />
           </div>
+          <!-- pk结果 -->
+          <img class="pk-result" v-if="true" src="../../static/img/fail.png" alt />
+          <img class="pk-result" v-if="false" src="../../static/img/victory.png" alt />
         </div>
       </div>
       <!-- 打赏前几名 -->
@@ -60,22 +72,27 @@
           <ul>
             <li>
               <div class="box">
+                <img class="avatar" src="../../static/img/default.jpg" alt />
                 <div class="top">1</div>
               </div>
             </li>
             <li>
               <div class="box">
+                <img class="avatar" src="../../static/img/default.jpg" alt />
                 <div class="top">2</div>
               </div>
             </li>
             <li>
               <div class="box">
+                <img class="avatar" src="../../static/img/default.jpg" alt />
                 <div class="top">3</div>
               </div>
             </li>
             <li>
               <div class="box">
-                <div class="top">4</div>
+                <img class="avatar" src="../../static/img/default.jpg" alt />
+                <!-- <div class="top">4</div> -->
+                <img class="pk-mvp" src="../../static/img/pk-mvp.png" alt />
               </div>
             </li>
           </ul>
@@ -84,16 +101,19 @@
           <ul>
             <li>
               <div class="box">
+                <img class="avatar" src="../../static/img/default.jpg" alt />
                 <div class="top">1</div>
               </div>
             </li>
             <li>
               <div class="box">
+                <img class="avatar" src="../../static/img/default.jpg" alt />
                 <div class="top">2</div>
               </div>
             </li>
             <li>
               <div class="box">
+                <img class="avatar" src="../../static/img/default.jpg" alt />
                 <div class="top">3</div>
               </div>
             </li>
@@ -119,10 +139,47 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      is_attention: 0, // 是否关注对方主播 0 未关注 1关注
+      enemyInfo: {
+        // 对方主播信息
+        videoUrl: "21638"
+      }
+    };
   },
   mounted() {},
-  methods: {}
+  methods: {
+    // 关注对方主播
+    setFollow(o) {
+      console.log(o);
+      var _this = this;
+      var json = { touid: o };
+      this.axios
+        .post(api.give_attention, this.$qs.stringify(json))
+        .then(function(res) {
+          _this.$root.login(res.data.state);
+          var dat = res.data;
+          if (dat.state == 0) {
+            _this.getis_attention(o);
+          } else {
+            _this.$emit("showM", dat.msg);
+          }
+        });
+    },
+    // 判断是否关注了对方主播
+    getis_attention(o) {
+      var _this = this;
+      var json = { roomnum: o };
+      this.axios
+        .post(api.home + "?" + this.$qs.stringify(json))
+        .then(function(res) {
+          var dat = res.data;
+          if (dat.state == 0) {
+            _this.is_attention = dat.content.is_attention;
+          }
+        });
+    }
+  }
 };
 </script>
 
@@ -202,16 +259,17 @@ export default {
         display: inline-block;
         width: 50%;
         height: 100%;
-        overflow:hidden;
+        overflow: hidden;
       }
       .video-l {
+        position: relative;
       }
       .video-r {
         position: relative;
         .enemy {
           position: absolute;
           right: 0.25rem;
-          bottom: 0.4rem;
+          bottom: 0.25rem;
           height: 0.7rem;
           font-size: 0;
           border-radius: 0.4rem;
@@ -224,7 +282,6 @@ export default {
             overflow: hidden;
             .avatar {
               height: 100%;
-              object-fit: cover;
             }
           }
           .name {
@@ -233,7 +290,7 @@ export default {
             height: 0.7rem;
             line-height: 0.7rem;
             vertical-align: top;
-            max-width: 1.5rem;
+            max-width: 1rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -244,6 +301,12 @@ export default {
             float: right;
           }
         }
+      }
+      .pk-result {
+        position: absolute;
+        left: 0.2rem;
+        bottom: 0.2rem;
+        width: 0.8rem;
       }
       video {
         position: relative;
@@ -274,8 +337,19 @@ export default {
             border-radius: 0.35rem;
             box-sizing: border-box;
             position: relative;
-            font-size: 0.1rem;
-            overflow: hidden;
+            font-size: 0.2rem;
+            .avatar {
+              height: 100%;
+              width: 100%;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+            .pk-mvp {
+              position: absolute;
+              width: 0.4rem;
+              left: 0.11rem;
+              bottom: -0.1rem;
+            }
             .top {
               position: absolute;
               width: 0.4rem;
