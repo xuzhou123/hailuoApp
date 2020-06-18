@@ -68,7 +68,7 @@
       </div>
       <!-- 打赏前几名 -->
       <div class="top-reward">
-        <div class="top-reward-box top-reward-l">
+        <div class="top-reward-box top-reward-l" @click="$refs.pkRewardList.init()">
           <ul>
             <li>
               <div class="box">
@@ -97,7 +97,7 @@
             </li>
           </ul>
         </div>
-        <div class="top-reward-box top-reward-r">
+        <div class="top-reward-box top-reward-r" @click="$refs.pkRewardList.init()">
           <ul>
             <li>
               <div class="box">
@@ -120,6 +120,9 @@
           </ul>
         </div>
       </div>
+
+      <!-- 贡献榜排名组件 -->
+      <pkRewardList ref="pkRewardList" />
     </div>
   </div>
 </template>
@@ -127,6 +130,7 @@
 <script>
 import Vue from "vue";
 import api from "@/constant/api";
+import pkRewardList from '@/components/pkRewardList';
 export default {
   props: {
     avatar: {
@@ -137,6 +141,9 @@ export default {
       type: String,
       default: ""
     }
+  },
+  components: {
+    pkRewardList
   },
   data() {
     return {
