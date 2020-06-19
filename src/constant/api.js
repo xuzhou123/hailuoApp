@@ -84,7 +84,9 @@ export default {
   pay_h5_wxpay:'/h5/index.php/pay_h5_wxpay',//h5微信支付
   pay_wechat_wxpay:'/h5/index.php/pay_wechat_wxpay',//微信公众号支付
   live_gift_list:'/h5/index.php/live_gift_list',//特效文件接口
-  hosturl:'/h5/view1/#/'
+  hosturl:'/h5/view1/#/',
+  //x-pk
+  show_pk_link_list:'/h5/index.php/show_pk_link_list' // 获取pk列表
  // hosturl:'http://192.168.31.102:8080/#/'
 
 }

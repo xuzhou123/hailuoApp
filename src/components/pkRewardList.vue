@@ -1,8 +1,8 @@
 <template>
   <div class="pk-reward-list">
     <!-- 贡献榜排名 -->
-    <div class="reward-list-mask" v-show="rewardListShow" @click="rewardListShow = false"></div>
-    <div class="reward-list" v-show="rewardListShow">
+    <div class="reward-list-mask" v-if="rewardListShow" @click="rewardListShow = false"></div>
+    <div class="reward-list" v-if="rewardListShow">
       <div class="list-box">
         <div class="title">本场PK贡献榜</div>
         <ul class="lists">
@@ -115,14 +115,14 @@ export default {
   }
   .reward-list {
     position: fixed;
-    height: 7rem;
+    height: 8rem;
     right: 0;
     bottom: 0;
     left: 0;
     z-index: 10001;
     .list-box {
       position: absolute;
-      height: 7rem;
+      height: 8rem;
       width: 100%;
       background: #fff;
       bottom: 0;
@@ -138,7 +138,7 @@ export default {
       .lists {
         color: #000;
         overflow: auto;
-        height: 6rem;
+        height: 7rem;
         li {
           height: 1rem;
           display: flex;

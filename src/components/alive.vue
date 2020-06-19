@@ -50,6 +50,7 @@
 				<div class="chat_banner" v-show="!valueinput" v-if="!flag">
 					<!--<i class="chat_ico chat_show_pop_speak js-download" @click="textInfo()"  ></i>-->
 					<i class="chat_ico1" @click="share=true" ></i>
+                    <img class="show-pk-list" @click="$refs.pkList.init()" src="../../static/img/pk-icon.png" alt="">
 					<!--<i class="chat_ico1" @click="pkFun()" ></i>
 					<i class="chat_ico1" @click="closePK()" ></i>-->
 					<!--<i class="chat_gift chat_show_pop_gift js-download" @click="textflag()"  ></i>-->
@@ -245,6 +246,9 @@
 				</div>
 			</div>
 		</div>
+
+        <!-- pk列表组件 -->
+        <pkList ref="pkList" />
 	</div>
 </template>
 
@@ -256,6 +260,7 @@
     import model_info from '@/components/model_info'
     import ListInfo from '@/components/ListInfo'
     import list_model from '@/components/list_model'
+    import pkList from '@/components/pkList'
     import { Toast,MessageBox  } from 'mint-ui'
     import VueSocketio from 'vue-socket.io';//socket即时通讯
     import domain from '../../untils/config'
@@ -509,7 +514,7 @@
 
         },
         components:{
-            model_info,ListInfo,list_model
+            model_info,ListInfo,list_model,pkList
         },
         mounted(){
             var _this=this
@@ -2658,7 +2663,21 @@
 	}
 	.chat_banner .chat_gift:after{
 		background: transparent !important;
-	}
+    }
+
+    .chat_banner {
+        .show-pk-list {
+            position: absolute;
+            left: calc(50% - 30px);
+            top: 0;
+            height: 40px;
+            width: 60px;
+            border-radius: 5px;
+            background: #5ACFFF;
+        }
+    }
+    
+        
 
 	.video_status_start{
 		width:1.5rem !important;
