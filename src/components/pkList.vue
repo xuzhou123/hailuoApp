@@ -1,11 +1,11 @@
 <template>
   <div class="pk-list">
-    <!-- 贡献榜排名 -->
-    <div class="list-mask" v-if="listShow" @click="listShow = false"></div>
-    <div class="list" v-if="listShow">
+    <div class="mask" v-if="show" @click="show=''"></div>
+    <!-- pk主播列表 -->
+    <div class="fixed-box list-container" v-if="show==='0'">
       <div class="list-box">
         <div class="title">
-          <img class="search" src="../../static/img/sear.png" alt />
+          <img class="search" @click="show='1'" src="../../static/img/sear.png" alt />
           发起PK
         </div>
         <div class="list-content">
@@ -18,6 +18,36 @@
             <invitationData ref="recommend" v-for="item in recommend" :key="item.id" />
           </div>
         </div>
+      </div>
+    </div>
+    <!-- 搜索主播列表 -->
+    <div class="fixed-box search-container" v-if="show==='1'">
+      <div class="title">搜索</div>
+      <div class="container">
+        <div class="search-val">
+          <div class="search-icon-x"></div>
+          <input type="text" v-model="searchVal" placeholder="搜索想PK的主播ID或昵称" />
+          <div class="close-icon-x" v-if="searchVal" @click="searchVal=''"></div>
+        </div>
+        <ul class="search-list">
+          <li v-for="item in searchLists" :key="item.id">
+            <div class="avatar">
+              <div :class="{'avatar-box':true,'border-style':item.islive}">
+                <img class="avatar-img" :src="item.avatar" alt />
+              </div>
+              <img class="living-icon" v-if="item.islive" src="../../static/img/living.png" alt />
+            </div>
+            <div class="info">
+              <span class="name">{{item.user_nicename}}</span>
+              <img :src="`../../static/img/op${item.level_anchor}.png`" alt />
+              <img :src="`../../static/img/${item.level}.png`" alt />
+            </div>
+            <div class="invitation-pk">
+              <div class="no-live" v-if="!item.islive">暂未开播</div>
+              <div class="invitation-btn" v-if="item.islive">邀请PK</div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -35,16 +65,24 @@ export default {
   },
   data() {
     return {
+      show: "", // 0 pk主播列表 1 搜索主播列表
       listShow: false, // 显影本场贡献榜弹窗
       mutualAttention: [], // 互相关注的主播
-      recommend: [] //推荐的主播
+      recommend: [], //推荐的主播
+      searchVal: "", // 搜索值
+      searchLists: []
     };
   },
   mounted() {},
+  watch: {
+    searchVal(newVal, oldVal) {
+      this.search();
+    }
+  },
   methods: {
     init() {
       const _this = this;
-      _this.listShow = true;
+      _this.show = "0";
       _this.axios.get(api.show_pk_link_list).then(function(res) {
         var dat = res.data;
         if (dat.state == 0) {
@@ -56,6 +94,27 @@ export default {
           });
         }
       });
+    },
+    // 搜索主播
+    search() {
+      const _this = this;
+      if (!this.searchVal) {
+        this.searchLists = [];
+        return;
+      }
+      let json = { keywords: this.searchVal };
+      _this.axios
+        .post(api.show_search_pklink_list, this.$qs.stringify(json))
+        .then(function(res) {
+          var dat = res.data;
+          if (dat.state == 0) {
+            _this.searchLists = dat.content;
+          } else {
+            Toast({
+              message: dat.msg
+            });
+          }
+        });
     }
   }
 };
@@ -63,7 +122,7 @@ export default {
 
 <style type="text/css" scoped="scoped" lang="less">
 .pk-list {
-  .list-mask {
+  .mask {
     position: fixed;
     top: 0;
     right: 0;
@@ -72,16 +131,18 @@ export default {
     background: rgba(0, 0, 0, 0);
     z-index: 10000;
   }
-  .list {
+  .fixed-box {
     position: fixed;
-    height: 7rem;
+    height: 8rem;
     right: 0;
     bottom: 0;
     left: 0;
     z-index: 10001;
+  }
+  .list-container {
     .list-box {
       position: absolute;
-      height: 8rem;
+      height: 100%;
       width: 100%;
       background: #fff;
       bottom: 0;
@@ -115,6 +176,118 @@ export default {
         .container {
           padding-bottom: 0.2rem;
           border-bottom: 0.001rem solid #eee;
+        }
+      }
+    }
+  }
+  .search-container {
+    background: #fff;
+    border-radius: 0.4rem 0.4rem 0 0;
+    .title {
+      position: relative;
+      height: 1rem;
+      text-align: center;
+      line-height: 1rem;
+      color: #000;
+      font-weight: 700;
+      border-bottom: 0.001rem solid #eee;
+    }
+    .container {
+      .search-val {
+        height: 0.8rem;
+        margin: 0.2rem;
+        background: #f1f1f1;
+        border-radius: 0.05rem;
+        display: flex;
+        .search-icon-x {
+          flex: 0 0 0.7rem;
+          background: url("../../static/img/sear.png") no-repeat center center;
+          background-size: 0.3rem;
+        }
+        input {
+          flex: 1;
+          border: 0;
+          background: transparent;
+        }
+        .close-icon-x {
+          flex: 0 0 0.7rem;
+          background: url("../../static/img/ic_room_btn_close_pressed.png")
+            no-repeat center center;
+          background-size: 0.3rem;
+        }
+      }
+      .search-list {
+        height: 5.8rem;
+        margin: 0 0.2rem;
+        overflow: auto;
+        li {
+          display: flex;
+          align-items: center;
+          height: 1rem;
+          margin-top: 0.2rem;
+          .avatar {
+            flex: 0 0 0.8rem;
+            height: 0.8rem;
+            position: relative;
+            .avatar-box {
+              height: 0.8rem;
+              width: 0.8rem;
+              border-radius: 0.4rem;
+              box-sizing: border-box;
+              overflow: hidden;
+              &.border-style {
+                border: 0.05rem solid #326aff;
+              }
+              .avatar-img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+              }
+            }
+            .living-icon {
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              height: 0.3rem;
+            }
+          }
+          .info {
+            flex: 1;
+            height: 100%;
+            padding-left: 0.2rem;
+            display: flex;
+            align-items: center;
+            span {
+              display: inline-block;
+              max-width: 2rem;
+              color: #404142;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            img {
+              height: 0.3rem;
+              margin-left: 0.1rem;
+            }
+          }
+          .invitation-pk {
+            flex: 0 0 1.5rem;
+            .invitation-btn {
+              width: 1.2rem;
+              padding: 0.05rem;
+              margin-left: 0.1rem;
+              text-align: center;
+              color: #fff;
+              font-size: 0.2rem;
+              border-radius: 0.05rem;
+              background: #326aff;
+            }
+            .no-live {
+              font-size: 0.2rem;
+              text-align: center;
+              color: #999999;
+            }
+          }
         }
       }
     }

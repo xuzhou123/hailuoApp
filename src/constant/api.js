@@ -86,7 +86,8 @@ export default {
   live_gift_list:'/h5/index.php/live_gift_list',//特效文件接口
   hosturl:'/h5/view1/#/',
   //x-pk
-  show_pk_link_list:'/h5/index.php/show_pk_link_list' // 获取pk列表
+  show_pk_link_list:'/h5/index.php/show_pk_link_list', // 获取pk列表
+  show_search_pklink_list:'/h5/index.php/show_search_pklink_list', // 搜索PK主播
  // hosturl:'http://192.168.31.102:8080/#/'
 
 }
