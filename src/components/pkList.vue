@@ -11,11 +11,11 @@
         <div class="list-content">
           <div class="container" v-if="mutualAttention.length">
             <span class="desc">与你互相关注的开播主播</span>
-            <invitationData ref="mutualAttention" v-for="item in mutualAttention" :key="item.id" />
+            <invitationData ref="mutualAttention" :datas="mutualAttention" />
           </div>
           <div class="container" v-if="recommend.length">
             <span class="desc">你可能想邀请的人</span>
-            <invitationData ref="recommend" v-for="item in recommend" :key="item.id" />
+            <invitationData ref="recommend" :datas="recommend" />
           </div>
         </div>
       </div>

@@ -1,20 +1,21 @@
 <template>
   <div class="invitation-data">
     <ul>
-      <li>
+      <li v-for="item in datas" :key="item.id">
         <div class="avatar">
-          <img src="../../static/img/default.jpg" alt />
+          <img :src="item.avatar" alt />
         </div>
         <div class="info">
           <div class="one">
-            <span>许多好机会房价肯定JFK搭建开发接口</span>
-            <img src="../../static/img/op1.png" alt />
-            <img src="../../static/img/23.png" alt />
+            <span>{{item.user_nicename}}</span>
+            <img :src="`../../static/img/op${item.level_anchor}.png`" alt />
+            <img :src="`../../static/img/${item.level}.png`" alt />
           </div>
           <div class="two">
-            <img src="../../static/img/women.png" alt />
-            <span class="audience">99观众</span>
-            <span class="yinlang">9999累计音浪</span>
+            <img src="../../static/img/nan.png" v-if="item.sex===1" alt />
+            <img src="../../static/img/nv.png" v-if="item.sex===2" alt />
+            <span class="audience">{{item.fans_num}}观众</span>
+            <span class="yinlang">{{item.vote_total}}累计音浪</span>
           </div>
         </div>
         <div class="invitation-pk">
@@ -29,7 +30,12 @@
 import Vue from "vue";
 import api from "@/constant/api";
 export default {
-  props: {},
+  props: {
+    datas: {
+      type: Array,
+      default: []
+    }
+  },
   data() {
     return {};
   },
