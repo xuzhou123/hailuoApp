@@ -134,11 +134,9 @@ export default {
     position: absolute;
     top: 100px;
     right: 0;
-    // bottom: 240px;
     left: 0;
     background: #fff;
     .video-box {
-      // height: calc(100% - 1.38rem);
       height: 5rem;
       background: #ccc;
       font-size: 0;

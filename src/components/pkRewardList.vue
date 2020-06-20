@@ -3,7 +3,8 @@
     <!-- 打赏前几名 -->
     <div class="top-reward">
       <div class="top-reward-box top-reward-l" @click="init">
-        <ul>
+        <div class="no-reward no-reward-l" v-if="false"></div>
+        <ul v-if="true">
           <li>
             <div class="box">
               <img class="avatar" src="../../static/img/default.jpg" alt />
@@ -32,7 +33,8 @@
         </ul>
       </div>
       <div class="top-reward-box top-reward-r" @click="init">
-        <ul>
+        <div class="no-reward no-reward-r" v-if="false"></div>
+        <ul v-if="true">
           <li>
             <div class="box">
               <img class="avatar" src="../../static/img/default.jpg" alt />
@@ -87,6 +89,26 @@
           <li>
             <div class="index">
               <img src="../../static/img/pk-no3.png" alt />
+            </div>
+            <div class="avatar">
+              <img src="../../static/img/default.jpg" alt />
+            </div>
+            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+            <div class="num">333</div>
+          </li>
+          <li>
+            <div class="index">
+              <span>4</span>
+            </div>
+            <div class="avatar">
+              <img src="../../static/img/default.jpg" alt />
+            </div>
+            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+            <div class="num">333</div>
+          </li>
+          <li>
+            <div class="index">
+              <span>4</span>
             </div>
             <div class="avatar">
               <img src="../../static/img/default.jpg" alt />
@@ -171,6 +193,21 @@ export default {
       width: 50%;
       display: inline-block;
     }
+    .no-reward {
+      height: 0.7rem;
+      width: 0.7rem;
+      margin: 0.15rem;
+      border-radius: 0.35rem;
+      &.no-reward-l {
+        background: url("../../static/img/no-reward-l.png") no-repeat center;
+        background-size: 0.7rem;
+      }
+      &.no-reward-r {
+        float: right;
+        background: url("../../static/img/no-reward-r.png") no-repeat center;
+        background-size: 0.7rem;
+      }
+    }
     ul {
       height: 100%;
       li {
@@ -179,7 +216,6 @@ export default {
           width: 0.7rem;
           height: 0.7rem;
           margin-top: 0.15rem;
-          border: 0.04rem solid #f03787;
           border-radius: 0.35rem;
           box-sizing: border-box;
           position: relative;
@@ -202,7 +238,6 @@ export default {
             height: 0.2rem;
             line-height: 0.2rem;
             text-align: center;
-            background: #f03787;
             left: 0.11rem;
             bottom: 0;
             border-radius: 0.15rem;
@@ -216,6 +251,10 @@ export default {
           float: left;
           .box {
             margin-left: 0.15rem;
+            border: 0.04rem solid #f03787;
+          }
+          .top {
+            background: #f03787;
           }
         }
       }
@@ -226,6 +265,10 @@ export default {
           float: right;
           .box {
             margin-right: 0.15rem;
+            border: 0.04rem solid #3cafeb;
+          }
+          .top {
+            background: #3cafeb;
           }
         }
       }
