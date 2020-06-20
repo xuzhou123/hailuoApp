@@ -5,7 +5,11 @@
     <div class="reward-list" v-if="rewardListShow">
       <div class="list-box">
         <div class="title">本场PK贡献榜</div>
-        <ul class="lists">
+        <div class="no-lists" v-if="!false">
+          <img src="../../static/img/no.png" alt="">
+          <div class="no-desc">帮助主播PK胜利，争夺MVP</div>
+        </div>
+        <ul class="lists" v-if="true">
           <li>
             <div class="index">
               <img src="../../static/img/pk-no1.png" alt />
@@ -134,6 +138,20 @@ export default {
         color: #000;
         font-weight: 700;
         border-bottom: 0.001rem solid #eee;
+      }
+      .no-lists {
+        height: 7rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 4rem;
+        }
+        .no-desc {
+          margin-top: 0.5rem;
+          color: #999999;
+        }
       }
       .lists {
         color: #000;
