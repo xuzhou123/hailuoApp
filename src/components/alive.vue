@@ -249,6 +249,8 @@
 
         <!-- pk列表组件 -->
         <pkList ref="pkList" />
+        <!-- 被邀请pk组件 -->
+        <byPk ref="byPk" />
 	</div>
 </template>
 
@@ -261,6 +263,7 @@
     import ListInfo from '@/components/ListInfo'
     import list_model from '@/components/list_model'
     import pkList from '@/components/pkList'
+    import byPk from '@/components/byPk'
     import { Toast,MessageBox  } from 'mint-ui'
     import VueSocketio from 'vue-socket.io';//socket即时通讯
     import domain from '../../untils/config'
@@ -514,7 +517,7 @@
 
         },
         components:{
-            model_info,ListInfo,list_model,pkList
+            model_info,ListInfo,list_model,pkList,byPk
         },
         mounted(){
             var _this=this
