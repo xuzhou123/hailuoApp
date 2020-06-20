@@ -1,12 +1,66 @@
 <template>
   <div class="pk-reward-list">
-    <!-- 贡献榜排名 -->
+    <!-- 打赏前几名 -->
+    <div class="top-reward">
+      <div class="top-reward-box top-reward-l" @click="init">
+        <ul>
+          <li>
+            <div class="box">
+              <img class="avatar" src="../../static/img/default.jpg" alt />
+              <div class="top">1</div>
+            </div>
+          </li>
+          <li>
+            <div class="box">
+              <img class="avatar" src="../../static/img/default.jpg" alt />
+              <div class="top">2</div>
+            </div>
+          </li>
+          <li>
+            <div class="box">
+              <img class="avatar" src="../../static/img/default.jpg" alt />
+              <div class="top">3</div>
+            </div>
+          </li>
+          <li>
+            <div class="box">
+              <img class="avatar" src="../../static/img/default.jpg" alt />
+              <!-- <div class="top">4</div> -->
+              <img class="pk-mvp" src="../../static/img/pk-mvp.png" alt />
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="top-reward-box top-reward-r" @click="init">
+        <ul>
+          <li>
+            <div class="box">
+              <img class="avatar" src="../../static/img/default.jpg" alt />
+              <div class="top">1</div>
+            </div>
+          </li>
+          <li>
+            <div class="box">
+              <img class="avatar" src="../../static/img/default.jpg" alt />
+              <div class="top">2</div>
+            </div>
+          </li>
+          <li>
+            <div class="box">
+              <img class="avatar" src="../../static/img/default.jpg" alt />
+              <div class="top">3</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 贡献榜排名 弹窗 -->
     <div class="reward-list-mask" v-if="rewardListShow" @click="rewardListShow = false"></div>
     <div class="reward-list" v-if="rewardListShow">
       <div class="list-box">
         <div class="title">本场PK贡献榜</div>
-        <div class="no-lists" v-if="!false">
-          <img src="../../static/img/no.png" alt="">
+        <div class="no-lists" v-if="false">
+          <img src="../../static/img/no.png" alt />
           <div class="no-desc">帮助主播PK胜利，争夺MVP</div>
         </div>
         <ul class="lists" v-if="true">
@@ -90,8 +144,7 @@
 import Vue from "vue";
 import api from "@/constant/api";
 export default {
-  props: {
-  },
+  props: {},
   data() {
     return {
       rewardListShow: false // 显影本场贡献榜弹窗
@@ -108,6 +161,76 @@ export default {
 
 <style type="text/css" scoped="scoped" lang="less">
 .pk-reward-list {
+  .top-reward {
+    height: 1rem;
+    background: #eee;
+    font-size: 0;
+    background: linear-gradient(90deg, #66172c 10%, #59204b 30%, #2148d5 90%);
+    .top-reward-box {
+      height: 100%;
+      width: 50%;
+      display: inline-block;
+    }
+    ul {
+      height: 100%;
+      li {
+        height: 100%;
+        .box {
+          width: 0.7rem;
+          height: 0.7rem;
+          margin-top: 0.15rem;
+          border: 0.04rem solid #f03787;
+          border-radius: 0.35rem;
+          box-sizing: border-box;
+          position: relative;
+          font-size: 0.2rem;
+          .avatar {
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          .pk-mvp {
+            position: absolute;
+            width: 0.4rem;
+            left: 0.11rem;
+            bottom: -0.1rem;
+          }
+          .top {
+            position: absolute;
+            width: 0.4rem;
+            height: 0.2rem;
+            line-height: 0.2rem;
+            text-align: center;
+            background: #f03787;
+            left: 0.11rem;
+            bottom: 0;
+            border-radius: 0.15rem;
+          }
+        }
+      }
+    }
+    .top-reward-l {
+      ul {
+        li {
+          float: left;
+          .box {
+            margin-left: 0.15rem;
+          }
+        }
+      }
+    }
+    .top-reward-r {
+      ul {
+        li {
+          float: right;
+          .box {
+            margin-right: 0.15rem;
+          }
+        }
+      }
+    }
+  }
   .reward-list-mask {
     position: fixed;
     top: 0;
@@ -164,6 +287,9 @@ export default {
           .index {
             flex: 0 0 1rem;
             text-align: center;
+            img {
+              width: 0.5rem;
+            }
           }
           .avatar {
             flex: 0 0 0.8rem;
