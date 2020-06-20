@@ -11,11 +11,11 @@
         <div class="list-content">
           <div class="container" v-if="mutualAttention.length">
             <span class="desc">与你互相关注的开播主播</span>
-            <invitationData ref="mutualAttention" :datas="mutualAttention" />
+            <invitationData ref="mutualAttention" :datas="mutualAttention" @invitationPk="invitationPk" />
           </div>
           <div class="container" v-if="recommend.length">
             <span class="desc">你可能想邀请的人</span>
-            <invitationData ref="recommend" :datas="recommend" />
+            <invitationData ref="recommend" :datas="recommend" @invitationPk="invitationPk" />
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="invitation-pk">
               <div class="no-live" v-if="!item.islive">暂未开播</div>
-              <div class="invitation-btn" v-if="item.islive">邀请PK</div>
+              <div class="invitation-btn" v-if="item.islive" @click="invitationPk(item)">邀请PK</div>
             </div>
           </li>
         </ul>
@@ -115,6 +115,26 @@ export default {
             });
           }
         });
+    },
+    // 邀请pk
+    invitationPk(item) {
+      let liveCt = JSON.parse(localStorage.getItem('liveCt'));
+      let val = {
+        retcode: "000000",
+        retmsg: "ok",
+        msg: [{
+          _method_: "testlink",
+          action: 1,
+          msgtype: 10,
+          roomnum: item.id,
+          user_nicename: liveCt.user_nicename,
+          quid: liveCt.id,
+          buid: item.id,
+          pktime: 6
+        }]
+      };
+      this.$emit('clickButton',JSON.stringify(val))
+      // this.$socket.emit("broadcast", JSON.stringify(val));
     }
   }
 };

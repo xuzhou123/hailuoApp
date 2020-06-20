@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="invitation-pk">
-          <div class="invitation-btn">邀请PK</div>
+          <div class="invitation-btn" @click="$emit('invitationPk',item)">邀请PK</div>
         </div>
       </li>
     </ul>
@@ -88,7 +88,7 @@ export default {
             color: #326aff;
           }
           .nv {
-            color: #E7577F;
+            color: #e7577f;
           }
           .yinlang {
             color: #8e8e8f;

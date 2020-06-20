@@ -248,7 +248,7 @@
 		</div>
 
         <!-- pk列表组件 -->
-        <pkList ref="pkList" />
+        <pkList ref="pkList" @clickButton="clickButton" />
         <!-- 被邀请pk组件 -->
         <byPk ref="byPk" />
 	</div>
@@ -970,6 +970,8 @@
                         var dat=res.data
                         if(dat.state==0){
                             _this.liveCt=dat.content.liveinfo
+                            localStorage.setItem('liveCt',JSON.stringify(_this.liveCt))
+                            console.log(JSON.stringify(_this.liveCt))
                             _this.$root.Hub.$emit('md',{iszb:true,kk:e,stream:_this.liveCt.stream,zid:_this.liveCt.uid,zname:_this.liveCt.user_nicename})
                             setTimeout(()=>{
                                 _this.mkop=true
@@ -1202,7 +1204,7 @@
                 this.$refs.html5player.style.display='block'
             },
             clickButton: function(val){
-                //console.log('小时')
+                // console.log('小时')
                 // $socket is socket.io-client instance
                 this.$socket.emit('broadcast',val);
                 //Socket.emitData('broadcast',msg);
