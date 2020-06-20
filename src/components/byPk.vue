@@ -1,7 +1,7 @@
 <template>
   <div class="by-pk">
-    <div class="mask" v-if="!show" @click="show=''"></div>
-    <div class="fixed-box by-pk-container">
+    <div class="mask" v-if="show" @click="show=''"></div>
+    <div class="fixed-box by-pk-container" v-if="show">
       <div class="container">
         <div class="title">礼物PK</div>
         <div class="desc">来自【相互关注】主播的PK邀请</div>
@@ -38,13 +38,9 @@
 <script>
 import Vue from "vue";
 import api from "@/constant/api";
-import invitationData from "@/components/invitationData";
 import { Toast } from "mint-ui";
 export default {
   props: {},
-  components: {
-    invitationData
-  },
   data() {
     return {
       show: false

@@ -14,7 +14,7 @@
           <div class="two">
             <img src="../../static/img/nan.png" v-if="item.sex===1" alt />
             <img src="../../static/img/nv.png" v-if="item.sex===2" alt />
-            <span class="audience">{{item.fans_num}}观众</span>
+            <span :class="{'nan':item.sex===1,'nv':item.sex===2}">{{item.fans_num}}观众</span>
             <span class="yinlang">{{item.vote_total}}累计音浪</span>
           </div>
         </div>
@@ -84,8 +84,11 @@ export default {
             display: inline-block;
             margin-top: 0.1rem;
           }
-          .audience {
-            color: #326aff; // #E7577F
+          .nan {
+            color: #326aff;
+          }
+          .nv {
+            color: #E7577F;
           }
           .yinlang {
             color: #8e8e8f;
