@@ -28,7 +28,7 @@
         <div class="operate">
           <div class="refuse" @click="refuse">拒绝（{{countDownNum}}s）</div>
           <div class="shuxian"></div>
-          <div class="accept">接受</div>
+          <div class="accept" @click="accept">接受</div>
         </div>
       </div>
     </div>
@@ -69,7 +69,7 @@ export default {
         }
       }, 1000);
     },
-    // 拒绝
+    // 拒绝pk
     refuse() {
       this._clearInterval();
       this.show = false;
@@ -80,6 +80,46 @@ export default {
           {
             _method_: "testlink",
             action: 6, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
+            msgtype: 10,
+            roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
+            user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
+            quid: this.liveCt.id, // 请求方主播id
+            buid: this.pkFromData.quid, // 应答方主播id
+            pktime: 6 // pk时长
+          }
+        ]
+      };
+      this.$emit("clickButton", JSON.stringify(val));
+    },
+    // 接受pk
+    accept() {
+      this._clearInterval();
+      this.show = false;
+
+      const _this = this;
+      let json = { quid: this.pkFromData.quid, buid: this.liveCt.id };
+      _this.axios
+        .post(api.show_agree_pk, this.$qs.stringify(json))
+        .then(function(res) {
+          var dat = res.data;
+          if (dat.state == 0) {
+            _this.acceptSocket();
+          } else {
+            Toast({
+              message: dat.msg
+            });
+          }
+        });
+    },
+    // 同意后发送socket
+    acceptSocket() {
+      let val = {
+        retcode: "000000",
+        retmsg: "ok",
+        msg: [
+          {
+            _method_: "testlink",
+            action: 5, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
             msgtype: 10,
             roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
             user_nicename: this.liveCt.user_nicename, // 请求方主播昵称

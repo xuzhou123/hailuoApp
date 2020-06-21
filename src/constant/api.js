@@ -88,6 +88,7 @@ export default {
   //x-pk
   show_pk_link_list:'/h5/index.php/show_pk_link_list', // 获取pk列表
   show_search_pklink_list:'/h5/index.php/show_search_pklink_list', // 搜索PK主播
+  show_agree_pk:'/h5/index.php/show_agree_pk', // 同意PK
  // hosturl:'http://192.168.31.102:8080/#/'
 
 }
