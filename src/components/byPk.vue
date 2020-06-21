@@ -1,6 +1,6 @@
 <template>
   <div class="by-pk">
-    <div class="mask" v-if="show" @click="show=false"></div>
+    <div class="mask" v-if="show" @click="refuse"></div>
     <div class="fixed-box by-pk-container" v-if="show">
       <div class="container">
         <div class="title">礼物PK</div>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="operate">
-          <div class="refuse" @click="show=false">拒绝（6s）</div>
+          <div class="refuse" @click="refuse">拒绝（{{countDownNum}}s）</div>
           <div class="shuxian"></div>
           <div class="accept">接受</div>
         </div>
@@ -40,22 +40,66 @@ import Vue from "vue";
 import api from "@/constant/api";
 import { Toast } from "mint-ui";
 export default {
-  props: {
-    pkFromData: {
-      type: Object,
-      default: {}
-    }
-  },
+  props: {},
   data() {
     return {
-      show: false
+      show: false,
+      liveCt: {}, // 主播的数据
+      pkFromData: {}, // 发起pk人传来的数据
+      countDownNum: 0, // 倒计时
+      timer: null // 定时器
     };
   },
   mounted() {},
   methods: {
-    init() {
-      const _this = this;
+    init(liveCt, pkFromData) {
+      this.show = true;
+      this.liveCt = liveCt;
+      this.pkFromData = pkFromData;
+      this.countDown();
+    },
+    // 倒计时
+    countDown() {
+      this.countDownNum = this.pkFromData.pktime;
+      this.timer = setInterval(() => {
+        if (this.countDownNum > 0) {
+          this.countDownNum--;
+        } else {
+          this.refuse();
+        }
+      }, 1000);
+    },
+    // 拒绝
+    refuse() {
+      this._clearInterval();
+      this.show = false;
+      let val = {
+        retcode: "000000",
+        retmsg: "ok",
+        msg: [
+          {
+            _method_: "testlink",
+            action: 6, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
+            msgtype: 10,
+            roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
+            user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
+            quid: this.liveCt.id, // 请求方主播id
+            buid: this.pkFromData.quid, // 应答方主播id
+            pktime: 6 // pk时长
+          }
+        ]
+      };
+      this.$emit("clickButton", JSON.stringify(val));
+    },
+    // 清除定时器
+    _clearInterval() {
+      clearInterval(this.timer);
     }
+  },
+  beforeDestroy() {
+    //清除定时器
+    this._clearInterval();
+    console.log("beforeDestroy");
   }
 };
 </script>

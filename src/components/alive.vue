@@ -250,7 +250,7 @@
         <!-- pk列表组件 -->
         <pkList ref="pkList" :liveCt="liveCt" @clickButton="clickButton" />
         <!-- 被邀请pk组件 -->
-        <byPk ref="byPk" :pkFromData="pkFromData" />
+        <byPk ref="byPk" @clickButton="clickButton" />
 	</div>
 </template>
 
@@ -373,7 +373,7 @@
         },
         sockets:{
             broadcastingListen:function(o){
-                //console.log(o,888)
+                console.log(o,' ===> broadcastingListen')
                 var _this=this
                 for(var i in o){
                     if(typeof o[i]=='string'){
@@ -664,9 +664,7 @@
                 if (action == 1) {
                     /* 请求连麦 */
                     if (roomnum == this.videoUrl) {
-                        console.log(JSON.stringify(data))
-                        this.pkFromData = data;
-                        this.$refs.byPk.show = true;
+                        this.$refs.byPk.init(this.liveCt,data);
                         // 忙线
                        /* l_t = setTimeout(function () {
                             Linkmic.linkmic_busy(quid, buid, user_nicename, pktime2);
@@ -1206,7 +1204,6 @@
                 this.$refs.html5player.style.display='block'
             },
             clickButton: function(val){
-                // console.log('小时')
                 // $socket is socket.io-client instance
                 this.$socket.emit('broadcast',val);
                 //Socket.emitData('broadcast',msg);

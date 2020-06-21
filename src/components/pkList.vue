@@ -123,7 +123,7 @@ export default {
     },
     // 邀请pk
     invitationPk(item) {
-      console.log(JSON.stringify(this.liveCt))
+      console.log(JSON.stringify(this.liveCt),' ===> invitationPk')
       let val = {
         retcode: "000000",
         retmsg: "ok",
@@ -136,14 +136,15 @@ export default {
           quid: this.liveCt.id,// 请求方主播id
           buid: item.id,// 应答方主播id
           pktime: 6, // pk时长
-          sex: this.liveCt.sex, //请求方性别
           avatar: this.liveCt.avatar, //请求方头像
+          sex: this.liveCt.sex, //请求方性别
           vote_total: this.liveCt.vote_total, //请求方累计音浪
           fans_num: this.liveCt.fans_num, //请求方观众
           level_anchor: this.liveCt.level_anchor, //请求方等级
           level: this.liveCt.level //请求方等级
         }]
       };
+      console.log(JSON.stringify(val),' ===> val')
       this.$emit('clickButton',JSON.stringify(val))
     }
   }
