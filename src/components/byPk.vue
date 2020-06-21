@@ -1,6 +1,6 @@
 <template>
   <div class="by-pk">
-    <div class="mask" v-if="show" @click="show=''"></div>
+    <div class="mask" v-if="show" @click="show=false"></div>
     <div class="fixed-box by-pk-container" v-if="show">
       <div class="container">
         <div class="title">礼物PK</div>
@@ -12,7 +12,7 @@
             </div>
             <div class="info-other">
               <div class="one">
-                <span>a架构开发架构开发的结果看到房价aa</span>
+                <span>{{pkFromData.user_nicename}}</span>
                 <img :src="`../../static/img/op1.png`" alt />
                 <img :src="`../../static/img/1.png`" alt />
               </div>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="operate">
-          <div class="refuse">拒绝（6s）</div>
+          <div class="refuse" @click="show=false">拒绝（6s）</div>
           <div class="shuxian"></div>
           <div class="accept">接受</div>
         </div>
@@ -40,7 +40,12 @@ import Vue from "vue";
 import api from "@/constant/api";
 import { Toast } from "mint-ui";
 export default {
-  props: {},
+  props: {
+    pkFromData: {
+      type: Object,
+      default: {}
+    }
+  },
   data() {
     return {
       show: false
@@ -173,7 +178,7 @@ export default {
         .accept {
           height: 100%;
           width: calc(50% - 0.01rem);
-          color: #2F6AFE;
+          color: #2f6afe;
           text-align: center;
           line-height: 1rem;
         }

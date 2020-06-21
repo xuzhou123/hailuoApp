@@ -250,7 +250,7 @@
         <!-- pk列表组件 -->
         <pkList ref="pkList" :liveCt="liveCt" @clickButton="clickButton" />
         <!-- 被邀请pk组件 -->
-        <byPk ref="byPk" />
+        <byPk ref="byPk" :pkFromData="pkFromData" />
 	</div>
 </template>
 
@@ -367,7 +367,8 @@
                 userid:'',
 				quid:'',
 				buid:'',
-				fswf_svga:false
+                fswf_svga:false,
+                pkFromData: {} // pk邀请者的信息
             };
         },
         sockets:{
@@ -663,18 +664,20 @@
                 if (action == 1) {
                     /* 请求连麦 */
                     if (roomnum == this.videoUrl) {
+                        this.pkFromData = data;
+                        this.$refs.byPk.show = true;
                         // 忙线
                        /* l_t = setTimeout(function () {
                             Linkmic.linkmic_busy(quid, buid, user_nicename, pktime2);
                         }, 10000);*/
 
-                        MessageBox.confirm(user_nicename + '向您发起连麦请求','海螺直播').then(function (index) {
-                            var msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"5","msgtype":"10","roomnum":"' + roomnum + '","user_nicename":"' + user_nicename + '","quid":"' + quid + '","buid":"' + buid + '","pktime":"' + pktime2 + '"}]}';
-                            _this.clickButton(msg)
-                        }, function (index) {
-                            var msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"6","msgtype":"10","roomnum":"' + roomnum + '","user_nicename":"' + user_nicename + '","quid":"' + quid + '","buid":"' + buid + '","pktime":"' + pktime2 + '"}]}';
-                            _this.clickButton(msg)
-                        });
+                        // MessageBox.confirm(user_nicename + '向您发起连麦请求','海螺直播').then(function (index) {
+                        //     var msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"5","msgtype":"10","roomnum":"' + roomnum + '","user_nicename":"' + user_nicename + '","quid":"' + quid + '","buid":"' + buid + '","pktime":"' + pktime2 + '"}]}';
+                        //     _this.clickButton(msg)
+                        // }, function (index) {
+                        //     var msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"6","msgtype":"10","roomnum":"' + roomnum + '","user_nicename":"' + user_nicename + '","quid":"' + quid + '","buid":"' + buid + '","pktime":"' + pktime2 + '"}]}';
+                        //     _this.clickButton(msg)
+                        // });
                     }
                 } else if (action == 2) {
                     //更新礼物我方主播的礼物
