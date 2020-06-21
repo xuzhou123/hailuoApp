@@ -83,7 +83,7 @@ export default {
             msgtype: 10,
             roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
             user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
-            quid: this.liveCt.id, // 请求方主播id
+            quid: this.liveCt.uid, // 请求方主播id
             buid: this.pkFromData.quid, // 应答方主播id
             pktime: 6 // pk时长
           }
@@ -97,7 +97,7 @@ export default {
       this.show = false;
 
       const _this = this;
-      let json = { quid: this.pkFromData.quid, buid: this.liveCt.id };
+      let json = { quid: this.pkFromData.quid, buid: this.liveCt.uid };
       _this.axios
         .post(api.show_agree_pk, this.$qs.stringify(json))
         .then(function(res) {
@@ -123,7 +123,7 @@ export default {
             msgtype: 10,
             roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
             user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
-            quid: this.liveCt.id, // 请求方主播id
+            quid: this.liveCt.uid, // 请求方主播id
             buid: this.pkFromData.quid, // 应答方主播id
             pktime: 6 // pk时长
           }

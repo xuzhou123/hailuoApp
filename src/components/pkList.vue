@@ -11,7 +11,11 @@
         <div class="list-content">
           <div class="container" v-if="mutualAttention.length">
             <span class="desc">与你互相关注的开播主播</span>
-            <invitationData ref="mutualAttention" :datas="mutualAttention" @invitationPk="invitationPk" />
+            <invitationData
+              ref="mutualAttention"
+              :datas="mutualAttention"
+              @invitationPk="invitationPk"
+            />
           </div>
           <div class="container" v-if="recommend.length">
             <span class="desc">你可能想邀请的人</span>
@@ -59,12 +63,7 @@ import api from "@/constant/api";
 import invitationData from "@/components/invitationData";
 import { Toast } from "mint-ui";
 export default {
-  props: {
-    liveCt: {
-      type: Object,
-      default: {}
-    }
-  },
+  props: {},
   components: {
     invitationData
   },
@@ -75,7 +74,8 @@ export default {
       mutualAttention: [], // 互相关注的主播
       recommend: [], //推荐的主播
       searchVal: "", // 搜索值
-      searchLists: []
+      searchLists: [],
+      liveCt: {}
     };
   },
   mounted() {},
@@ -85,7 +85,8 @@ export default {
     }
   },
   methods: {
-    init() {
+    init(liveCt) {
+      this.liveCt = liveCt;
       const _this = this;
       _this.show = "0";
       _this.axios.get(api.show_pk_link_list).then(function(res) {
@@ -123,29 +124,29 @@ export default {
     },
     // 邀请pk
     invitationPk(item) {
-      console.log(JSON.stringify(this.liveCt),' ===> invitationPk')
       let val = {
         retcode: "000000",
         retmsg: "ok",
-        msg: [{
-          _method_: "testlink",
-          action: 1,// 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
-          msgtype: 10,
-          roomnum: item.id,// 应答方主播房间号=应答方主播id
-          user_nicename: this.liveCt.user_nicename,// 请求方主播昵称
-          quid: this.liveCt.id,// 请求方主播id
-          buid: item.id,// 应答方主播id
-          pktime: 6, // pk时长
-          avatar: this.liveCt.avatar, //请求方头像
-          sex: this.liveCt.sex, //请求方性别
-          vote_total: this.liveCt.vote_total, //请求方累计音浪
-          fans_num: this.liveCt.fans_num, //请求方观众
-          level_anchor: this.liveCt.level_anchor, //请求方等级
-          level: this.liveCt.level //请求方等级
-        }]
+        msg: [
+          {
+            _method_: "testlink",
+            action: 1, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
+            msgtype: 10,
+            roomnum: item.id, // 应答方主播房间号=应答方主播id
+            user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
+            quid: this.liveCt.uid, // 请求方主播id
+            buid: item.id, // 应答方主播id
+            pktime: 6, // pk时长
+            avatar: this.liveCt.avatar, //请求方头像
+            sex: this.liveCt.sex, //请求方性别
+            vote_total: this.liveCt.vote_total, //请求方累计音浪
+            fans_num: this.liveCt.fans_num, //请求方观众
+            level_anchor: this.liveCt.level_anchor, //请求方等级
+            level: this.liveCt.level //请求方等级
+          }
+        ]
       };
-      console.log(JSON.stringify(val),' ===> val')
-      this.$emit('clickButton',JSON.stringify(val))
+      this.$emit("clickButton", JSON.stringify(val));
     }
   }
 };

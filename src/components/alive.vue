@@ -50,7 +50,7 @@
 				<div class="chat_banner" v-show="!valueinput" v-if="!flag">
 					<!--<i class="chat_ico chat_show_pop_speak js-download" @click="textInfo()"  ></i>-->
 					<i class="chat_ico1" @click="share=true" ></i>
-                    <img class="show-pk-list" @click="$refs.pkList.init()" src="../../static/img/pk-icon.png" alt="">
+                    <img class="show-pk-list" @click="$refs.pkList.init(liveCt)" src="../../static/img/pk-icon.png" alt="">
 					<!--<i class="chat_ico1" @click="pkFun()" ></i>
 					<i class="chat_ico1" @click="closePK()" ></i>-->
 					<!--<i class="chat_gift chat_show_pop_gift js-download" @click="textflag()"  ></i>-->
@@ -248,7 +248,7 @@
 		</div>
 
         <!-- pk列表组件 -->
-        <pkList ref="pkList" :liveCt="liveCt" @clickButton="clickButton" />
+        <pkList ref="pkList" @clickButton="clickButton" />
         <!-- 被邀请pk组件 -->
         <byPk ref="byPk" @clickButton="clickButton" />
 	</div>
@@ -663,7 +663,7 @@
 
                 if (action == 1) {
                     /* 请求连麦 */
-                    if (roomnum == this.videoUrl) {
+                    if (roomnum == this.videoUrl) { 
                         this.$refs.byPk.init(this.liveCt,data);
                         // 忙线
                        /* l_t = setTimeout(function () {
@@ -703,7 +703,7 @@
                     //接受
                     if (roomnum == this.videoUrl) {
                         this.showM("主播接受了您的PK连麦请求");
-                        this.pkFun3(quid,buid)
+                        // this.pkFun3(quid,buid)
                     }
                 } else if (action == 6) {
                     //拒绝
