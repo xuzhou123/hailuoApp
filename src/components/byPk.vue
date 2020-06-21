@@ -71,8 +71,9 @@ export default {
     },
     // 拒绝pk
     refuse() {
-      this._clearInterval();
+      clearInterval(this.timer);
       this.show = false;
+
       let val = {
         retcode: "000000",
         retmsg: "ok",
@@ -93,7 +94,7 @@ export default {
     },
     // 接受pk
     accept() {
-      this._clearInterval();
+      clearInterval(this.timer);
       this.show = false;
 
       const _this = this;
@@ -130,15 +131,11 @@ export default {
         ]
       };
       this.$emit("clickButton", JSON.stringify(val));
-    },
-    // 清除定时器
-    _clearInterval() {
-      clearInterval(this.timer);
     }
   },
   beforeDestroy() {
     //清除定时器
-    this._clearInterval();
+    clearInterval(this.timer);
     console.log("beforeDestroy");
   }
 };
