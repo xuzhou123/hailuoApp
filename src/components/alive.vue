@@ -664,6 +664,7 @@
                 if (action == 1) {
                     /* 请求连麦 */
                     if (roomnum == this.videoUrl) {
+                        console.log(JSON.stringify(data))
                         this.pkFromData = data;
                         this.$refs.byPk.show = true;
                         // 忙线

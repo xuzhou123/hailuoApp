@@ -8,19 +8,19 @@
         <div class="info-box">
           <div class="info">
             <div class="avatar">
-              <img :src="'../../static/img/default.jpg'" alt />
+              <img :src="pkFromData.avatar" alt />
             </div>
             <div class="info-other">
               <div class="one">
                 <span>{{pkFromData.user_nicename}}</span>
-                <img :src="`../../static/img/op1.png`" alt />
-                <img :src="`../../static/img/1.png`" alt />
+                <img :src="`../../static/img/op${pkFromData.level_anchor}.png`" alt />
+                <img :src="`../../static/img/${pkFromData.level}.png`" alt />
               </div>
               <div class="two">
-                <img src="../../static/img/nan.png" v-if="1" alt />
-                <!-- <img src="../../static/img/nv.png" v-if="item.sex===2" alt /> -->
-                <span class="audience">11观众</span>
-                <span class="yinlang">22累计音浪</span>
+                <img src="../../static/img/nan.png" v-if="pkFromData.sex===1" alt />
+                <img src="../../static/img/nv.png" v-if="pkFromData.sex===2" alt />
+                <span class="audience">{{pkFromData.fans_num}}观众</span>
+                <span class="yinlang">{{pkFromData.vote_total}}累计音浪</span>
               </div>
             </div>
           </div>
