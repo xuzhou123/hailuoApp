@@ -248,7 +248,7 @@
 		</div>
 
         <!-- pk列表组件 -->
-        <pkList ref="pkList" @clickButton="clickButton" />
+        <pkList ref="pkList" :liveCt="liveCt" @clickButton="clickButton" />
         <!-- 被邀请pk组件 -->
         <byPk ref="byPk" />
 	</div>
@@ -310,7 +310,7 @@
                 level:'',
                 arr_my_attention:[],
                 wrapperHeight:0,
-                liveCt:[],
+                liveCt:{},// 主播信息
                 content:[],
                 java:false,//礼物特效是否显示
                 java2:false,//礼物特效是否显示
@@ -970,8 +970,6 @@
                         var dat=res.data
                         if(dat.state==0){
                             _this.liveCt=dat.content.liveinfo
-                            localStorage.setItem('liveCt',JSON.stringify(_this.liveCt))
-                            console.log(JSON.stringify(_this.liveCt))
                             _this.$root.Hub.$emit('md',{iszb:true,kk:e,stream:_this.liveCt.stream,zid:_this.liveCt.uid,zname:_this.liveCt.user_nicename})
                             setTimeout(()=>{
                                 _this.mkop=true

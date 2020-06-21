@@ -59,7 +59,12 @@ import api from "@/constant/api";
 import invitationData from "@/components/invitationData";
 import { Toast } from "mint-ui";
 export default {
-  props: {},
+  props: {
+    liveCt: {
+      type: Object,
+      default: {}
+    }
+  },
   components: {
     invitationData
   },
@@ -118,7 +123,7 @@ export default {
     },
     // 邀请pk
     invitationPk(item) {
-      let liveCt = JSON.parse(localStorage.getItem('liveCt'));
+      console.log(JSON.stringify(this.liveCt))
       let val = {
         retcode: "000000",
         retmsg: "ok",
@@ -127,14 +132,13 @@ export default {
           action: 1,
           msgtype: 10,
           roomnum: item.id,
-          user_nicename: liveCt.user_nicename,
-          quid: liveCt.id,
+          user_nicename: this.liveCt.user_nicename,
+          quid: this.liveCt.id,
           buid: item.id,
           pktime: 6
         }]
       };
       this.$emit('clickButton',JSON.stringify(val))
-      // this.$socket.emit("broadcast", JSON.stringify(val));
     }
   }
 };
