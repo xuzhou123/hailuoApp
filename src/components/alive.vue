@@ -250,7 +250,7 @@
         <!-- pk列表组件 -->
         <pkList ref="pkList" @clickButton="clickButton" />
         <!-- 被邀请pk组件 -->
-        <byPk ref="byPk" @clickButton="clickButton" />
+        <byPk ref="byPk" @clickButton="clickButton" @showM="showM" />
 	</div>
 </template>
 
@@ -699,7 +699,6 @@
                     }
 
                 } else if (action == 5) {
-
                     //接受
                     if (roomnum == this.videoUrl) {
                         this.showM("主播接受了您的PK连麦请求");

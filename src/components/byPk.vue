@@ -65,9 +65,32 @@ export default {
         if (this.countDownNum > 0) {
           this.countDownNum--;
         } else {
-          this.refuse();
+          this.isBusy();
         }
       }, 1000);
+    },
+    // 对方忙
+    isBusy() {
+      clearInterval(this.timer);
+      this.show = false;
+
+      let val = {
+        retcode: "000000",
+        retmsg: "ok",
+        msg: [
+          {
+            _method_: "testlink",
+            action: 7, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
+            msgtype: 10,
+            roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
+            user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
+            quid: this.liveCt.uid, // 请求方主播id
+            buid: this.pkFromData.quid, // 应答方主播id
+            pktime: 6 // pk时长
+          }
+        ]
+      };
+      this.$emit("clickButton", JSON.stringify(val));
     },
     // 拒绝pk
     refuse() {
@@ -90,6 +113,7 @@ export default {
           }
         ]
       };
+      this.$emit("showM", "您已拒绝了PK连麦请求");
       this.$emit("clickButton", JSON.stringify(val));
     },
     // 接受pk
@@ -130,6 +154,7 @@ export default {
           }
         ]
       };
+      this.$emit("showM", "您接受了PK连麦请求");
       this.$emit("clickButton", JSON.stringify(val));
     }
   },
