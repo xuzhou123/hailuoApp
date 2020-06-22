@@ -40,7 +40,7 @@
         <!-- pk结束 -->
 
         <!-- x-pk -->
-        <xPk :avatar="liveCt.avatar" :hls="hls" @showM="showM" v-if="pkflag" />
+        <xPk :pkActiveData="pkActiveData" :liveCt="liveCt" @showM="showM" v-if="pkflag" />
 
         <!-- 直播 -->
         <div id="video" class="video-con" v-if="!pkflag" @click="videoflag">
@@ -383,7 +383,7 @@ export default {
       level: "",
       arr_my_attention: [],
       wrapperHeight: 0,
-      liveCt: [],
+      liveCt: {},
       content: [],
       java: false, //礼物特效是否显示
       java2: false, //礼物特效是否显示
@@ -434,11 +434,13 @@ export default {
       userid: "",
       is_attention: 0,
       fswf_svga: false,
-      islive: 1
+      islive: 1,
+      pkActiveData: {} //pk实时数据
     };
   },
   sockets: {
     broadcastingListen: function(o) {
+      console.log(o,' =============> ooooooooo')
       var _this = this;
       for (var i in o) {
         if (typeof o[i] == "string") {
@@ -573,6 +575,7 @@ export default {
         document.documentElement.clientHeight + "px";
       this.videoUrl = this.$route.query.id;
       this.getHome();
+      this.getPkActiveData();// 获取pk实时数据
       this.getis_attention();
       this.getPerson2();
       this.phpflag = setInterval(() => {
@@ -1265,6 +1268,24 @@ export default {
           }
           if (!_this.pkflag) {
             _this.$refs.html5player.style.display = "block";
+          }
+        });
+    },
+    // 获取pk数据
+    getPkActiveData() {
+      const _this = this;
+      let json = { quid: 21618,buid: 21638 };// 21950 21638
+      _this.axios
+        .post(api.pk_active_data, this.$qs.stringify(json))
+        .then(function(res) {
+          var dat = res.data;
+          console.log(JSON.stringify(dat),' ========> dat')
+          if (dat.state == 0) {
+            _this.pkActiveData = dat.content;
+          } else {
+            Toast({
+              message: dat.msg
+            });
           }
         });
     },

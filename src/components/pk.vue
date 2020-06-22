@@ -12,10 +12,10 @@
             preload="auto"
             x5-video-player-type="h5"
             x-webkit-airplay="true"
-            :poster="avatar"
+            :poster="leftData.avatar"
             webkit-playsinline="true"
             playsinline="true"
-            :src="hls"
+            :src="leftData.hls"
           ></video>
           <!-- pk结果 -->
           <img class="pk-result" v-if="false" src="../../static/img/fail.png" alt />
@@ -28,11 +28,12 @@
             preload="auto"
             x5-video-player-type="h5"
             x-webkit-airplay="true"
-            :poster="avatar"
+            :poster="rightData.avatar"
             webkit-playsinline="true"
             playsinline="true"
-            :src="hls"
+            :src="rightData.hls"
           ></video>
+          {{rightData.hls}}
           <!-- 敌方信息 -->
           <div class="enemy">
             <div class="avatar-box">
@@ -41,7 +42,7 @@
             <span class="name">徐洲啊房价肯定艰苦奋斗JFK大家看法</span>
             <img
               class="add-follow"
-              @click="setFollow(enemyInfo.videoUrl)"
+              @click="setFollow(rightData.id)"
               v-if="is_attention!=1"
               src="../../static/img/add-follow.png"
               alt
@@ -61,17 +62,17 @@
 <script>
 import Vue from "vue";
 import api from "@/constant/api";
-import bloodBar from '@/components/bloodBar';
-import pkRewardList from '@/components/pkRewardList';
+import bloodBar from "@/components/bloodBar";
+import pkRewardList from "@/components/pkRewardList";
 export default {
   props: {
-    avatar: {
-      type: String,
-      default: ""
+    pkActiveData: {
+      type: Object,
+      default: {}
     },
-    hls: {
-      type: String,
-      default: ""
+    liveCt: {
+      type: Object,
+      default: {}
     }
   },
   components: {
@@ -81,11 +82,23 @@ export default {
   data() {
     return {
       is_attention: 0, // 是否关注对方主播 0 未关注 1关注
-      enemyInfo: {
-        // 对方主播信息
-        videoUrl: "21638"
-      }
+      leftData: {},
+      rightData: {}
     };
+  },
+  watch: {
+    pkActiveData(newVal, oldVal) {
+      if (this.pkActiveData.pk_data&&this.pkActiveData.pk_data.anchor) {
+        if (this.pkActiveData.pk_data.b_uid == this.liveCt.uid) {
+          this.leftData = this.pkActiveData.pk_data.anchor.b_uid_info;
+          this.rightData = this.pkActiveData.pk_data.anchor.q_uid_info;
+        } else if(this.pkActiveData.pk_data.q_uid == this.liveCt.uid) {
+          this.rightData = this.pkActiveData.pk_data.anchor.b_uid_info;
+          this.leftData = this.pkActiveData.pk_data.anchor.q_uid_info;
+        }
+        this.getis_attention(this.rightData.id);// 判断是否观众了对方主播
+      }
+    }
   },
   mounted() {},
   methods: {
