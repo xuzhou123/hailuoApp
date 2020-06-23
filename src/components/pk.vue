@@ -2,7 +2,7 @@
   <div class="x-pk">
     <div class="pk-content">
       <!-- pk血条 -->
-      <bloodBar ref="bloodBar" />
+      <bloodBar :pkActiveData="pkActiveData" :liveCt="liveCt" :bUid="bUid" :qUid="qUid" ref="bloodBar" />
       <!-- pk画面 -->
       <div class="video-box">
         <div class="video-common video-l">
@@ -73,6 +73,12 @@ export default {
     liveCt: {
       type: Object,
       default: {}
+    },
+    bUid: {
+      type: Number
+    },
+    qUid: {
+      type: Number
     }
   },
   components: {
@@ -88,14 +94,10 @@ export default {
   },
   watch: {
     pkActiveData(newVal, oldVal) {
+      console.log(JSON.stringify(newVal),' ================> pkActiveData <================')
       if (this.pkActiveData.pk_data&&this.pkActiveData.pk_data.anchor) {
-        if (this.pkActiveData.pk_data.b_uid == this.liveCt.uid) {
-          this.leftData = this.pkActiveData.pk_data.anchor.b_uid_info;
-          this.rightData = this.pkActiveData.pk_data.anchor.q_uid_info;
-        } else if(this.pkActiveData.pk_data.q_uid == this.liveCt.uid) {
-          this.rightData = this.pkActiveData.pk_data.anchor.b_uid_info;
-          this.leftData = this.pkActiveData.pk_data.anchor.q_uid_info;
-        }
+        this.leftData = this.pkActiveData.pk_data.anchor.b_uid_info;
+        this.rightData = this.pkActiveData.pk_data.anchor.q_uid_info;
         this.getis_attention(this.rightData.id);// 判断是否观众了对方主播
       }
     }

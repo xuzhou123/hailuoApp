@@ -40,7 +40,7 @@
         <!-- pk结束 -->
 
         <!-- x-pk -->
-        <xPk :pkActiveData="pkActiveData" :liveCt="liveCt" @showM="showM" v-if="pkflag" />
+        <xPk :pkActiveData="pkActiveData" :liveCt="liveCt" :bUid="bUid" :qUid="qUid" @showM="showM" v-if="pkflag" />
 
         <!-- 直播 -->
         <div id="video" class="video-con" v-if="!pkflag" @click="videoflag">
@@ -435,7 +435,9 @@ export default {
       is_attention: 0,
       fswf_svga: false,
       islive: 1,
-      pkActiveData: {} //pk实时数据
+      pkActiveData: {}, //pk实时数据
+      bUid: 21638,
+      qUid: 21618,
     };
   },
   sockets: {
@@ -540,6 +542,9 @@ export default {
           });
         }
       }
+    },
+    update_pkdata: function(o) {
+      console.error(o, "update_pkdata");
     },
     conn: function(o) {
       console.log(o, "连接服务器回应");
@@ -1274,12 +1279,11 @@ export default {
     // 获取pk数据
     getPkActiveData() {
       const _this = this;
-      let json = { quid: 21618,buid: 21638 };// 21950 21638
+      let json = { buid: this.bUid, quid: this.qUid };// 21950 21638
       _this.axios
         .post(api.pk_active_data, this.$qs.stringify(json))
         .then(function(res) {
           var dat = res.data;
-          console.log(JSON.stringify(dat),' ========> dat')
           if (dat.state == 0) {
             _this.pkActiveData = dat.content;
           } else {

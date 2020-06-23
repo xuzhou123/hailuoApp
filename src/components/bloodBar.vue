@@ -21,7 +21,22 @@ import Vue from "vue";
 import api from "@/constant/api";
 import { Toast } from "mint-ui";
 export default {
-  props: {},
+  props: {
+    pkActiveData: {
+      type: Object,
+      default: {}
+    },
+    liveCt: {
+      type: Object,
+      default: {}
+    },
+    bUid: {
+      type: Number
+    },
+    qUid: {
+      type: Number
+    }
+  },
   data() {
     return {};
   },
