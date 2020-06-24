@@ -2,7 +2,7 @@
   <div class="x-pk">
     <div class="pk-content">
       <!-- pk血条 -->
-      <bloodBar :pkActiveData="pkActiveData" :liveCt="liveCt" :bUid="bUid" :qUid="qUid" ref="bloodBar" />
+      <bloodBar ref="bloodBar" :pkActiveData="pkActiveData" :liveCt="liveCt" :lUid="lUid" :rUid="rUid" />
       <!-- pk画面 -->
       <div class="video-box">
         <div class="video-common video-l">
@@ -37,9 +37,9 @@
           <!-- 敌方信息 -->
           <div class="enemy">
             <div class="avatar-box">
-              <img class="avatar" src="../../static/img/default.jpg" alt />
+              <img class="avatar" :src="rightData.avatar" alt />
             </div>
-            <span class="name">徐洲啊房价肯定艰苦奋斗JFK大家看法</span>
+            <span class="name">{{rightData.user_nicename}}</span>
             <img
               class="add-follow"
               @click="setFollow(rightData.id)"
@@ -54,7 +54,7 @@
         </div>
       </div>
       <!-- 贡献榜排名组件 -->
-      <pkRewardList ref="pkRewardList" />
+      <pkRewardList ref="pkRewardList" :pkActiveData="pkActiveData" :liveCt="liveCt" :lUid="lUid" :rUid="rUid" />
     </div>
   </div>
 </template>
@@ -73,12 +73,6 @@ export default {
     liveCt: {
       type: Object,
       default: {}
-    },
-    bUid: {
-      type: Number
-    },
-    qUid: {
-      type: Number
     }
   },
   components: {
@@ -88,16 +82,28 @@ export default {
   data() {
     return {
       is_attention: 0, // 是否关注对方主播 0 未关注 1关注
+      lUid: 0,
+      rUid: 0,
       leftData: {},
       rightData: {}
     };
   },
   watch: {
     pkActiveData(newVal, oldVal) {
+      console.log(JSON.stringify(this.liveCt),' ================> liveCt <================')
       console.log(JSON.stringify(newVal),' ================> pkActiveData <================')
       if (this.pkActiveData.pk_data&&this.pkActiveData.pk_data.anchor) {
-        this.leftData = this.pkActiveData.pk_data.anchor.b_uid_info;
-        this.rightData = this.pkActiveData.pk_data.anchor.q_uid_info;
+        if (this.liveCt.quid == this.liveCt.uid) {
+          this.lUid = this.pkActiveData.pk_data.q_uid;
+          this.rUid = this.pkActiveData.pk_data.b_uid;
+          this.leftData = this.pkActiveData.pk_data.anchor.q_uid_info;
+          this.rightData = this.pkActiveData.pk_data.anchor.b_uid_info;
+        } else if(this.liveCt.buid == this.liveCt.uid) {
+          this.lUid = this.pkActiveData.pk_data.b_uid;
+          this.rUid = this.pkActiveData.pk_data.q_uid;
+          this.rightData = this.pkActiveData.pk_data.anchor.q_uid_info;
+          this.leftData = this.pkActiveData.pk_data.anchor.b_uid_info;
+        }
         this.getis_attention(this.rightData.id);// 判断是否观众了对方主播
       }
     }
@@ -177,11 +183,14 @@ export default {
           .avatar-box {
             display: inline-block;
             height: 0.56rem;
+            width: 0.56rem;
             margin: 0.07rem;
             border-radius: 0.28rem;
             overflow: hidden;
             .avatar {
               height: 100%;
+              width: 100%;
+              object-fit: cover;
             }
           }
           .name {

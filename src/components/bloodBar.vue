@@ -1,16 +1,17 @@
 <template>
   <div class="blood-bar">
-    <div class="blood blood-l" :style="{width:'70%'}">
-      <span>11113331</span>
+    <div class="blood blood-l" :style="{width: ratioL+'%'}">
+      <span>{{bloodL}}</span>
     </div>
-    <div class="blood blood-r" :style="{width:'30%'}">
-      <span>33333333</span>
+    <div class="blood blood-r" :style="{width: ratioR+'%'}">
+      <span>{{bloodR}}</span>
     </div>
     <!-- 倒计时 -->
     <div class="count-down-box">
       <div class="count-down">
-        <img src="../../static/img/pklogo.png" alt />
-        00:59
+        <img v-if="roomState!='punish'" src="../../static/img/pklogo.png" alt />
+        <span v-if="roomState=='punish'">惩罚</span>
+        {{time}}
       </div>
     </div>
   </div>
@@ -30,18 +31,61 @@ export default {
       type: Object,
       default: {}
     },
-    bUid: {
+    lUid: {
       type: Number
     },
-    qUid: {
+    rUid: {
       type: Number
     }
   },
-  data() {
-    return {};
+  watch: {
+    pkActiveData(newVal, oldVal) {
+      this.formatBlood();
+      this.setTime();
+    }
   },
-  mounted() {},
-  methods: {}
+  data() {
+    return {
+      bloodL: 0,
+      bloodR: 0,
+      ratioL: 50,
+      ratioR: 50,
+      time: '00:00',
+      roomState: 'pk',// 房间状态 pk：pk中 punish：惩罚中 no：没有状态
+    };
+  },
+  methods: {
+    formatBlood() {
+      this.bloodL = this.pkActiveData.pk_room_data.contribution["uid_" + this.lUid];  
+      this.bloodR = this.pkActiveData.pk_room_data.contribution["uid_" + this.rUid];
+      // 计算比率
+      let sum = this.bloodL + this.bloodR;
+      if(sum==0) {
+        this.ratioL = this.ratioR = 50;
+      } else {
+        let ratio = Math.ceil(this.bloodL/sum*100);
+        if(ratio>=95) {
+          this.ratioL = 95;
+          this.ratioR = 5;
+        } else if (ratio<=5) {
+          this.ratioL = 5;
+          this.ratioR = 95;
+        } else {
+          this.ratioL = ratio;
+          this.ratioR = 100 - this.ratioL;
+        }
+      }
+    },
+    setTime() {
+      this.roomState = this.pkActiveData.pk_room_data.room_state;
+      if(this.roomState=='pk') {
+        this.time = this.pkActiveData.pk_room_data.pk_stime;
+      } else if(this.roomState=='punish') {
+        this.time = this.pkActiveData.pk_room_data.punish_stime;
+      }
+    }
+  },
+  mounted() {}
 };
 </script>
 

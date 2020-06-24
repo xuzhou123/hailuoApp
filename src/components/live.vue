@@ -40,7 +40,7 @@
         <!-- pk结束 -->
 
         <!-- x-pk -->
-        <xPk :pkActiveData="pkActiveData" :liveCt="liveCt" :bUid="bUid" :qUid="qUid" @showM="showM" v-if="pkflag" />
+        <xPk :pkActiveData="pkActiveData" :liveCt="liveCt" @showM="showM" v-if="pkflag" />
 
         <!-- 直播 -->
         <div id="video" class="video-con" v-if="!pkflag" @click="videoflag">
@@ -368,7 +368,7 @@ export default {
       kickid: 0,
       shutid: 0,
       pktime: 4,
-      pkflag: true,
+      pkflag: false,
       valueinput: false,
       system: [{ name: "晓东" }, { name: "晓东" }, { name: "晓东" }],
       active: "tab-container1",
@@ -435,9 +435,7 @@ export default {
       is_attention: 0,
       fswf_svga: false,
       islive: 1,
-      pkActiveData: {}, //pk实时数据
-      bUid: 21638,
-      qUid: 21618,
+      pkActiveData: {} //pk实时数据
     };
   },
   sockets: {
@@ -544,7 +542,7 @@ export default {
       }
     },
     update_pkdata: function(o) {
-      console.error(o, "update_pkdata");
+      // console.log(o, "update_pkdata");
     },
     conn: function(o) {
       console.log(o, "连接服务器回应");
@@ -580,7 +578,6 @@ export default {
         document.documentElement.clientHeight + "px";
       this.videoUrl = this.$route.query.id;
       this.getHome();
-      this.getPkActiveData();// 获取pk实时数据
       this.getis_attention();
       this.getPerson2();
       this.phpflag = setInterval(() => {
@@ -1250,6 +1247,10 @@ export default {
           if (dat.state == 0) {
             // _this.LinkRouter(dat.content.hls);
             _this.liveCt = dat.content.liveinfo;
+            if(_this.liveCt.ispk==1) {
+              _this.pkflag = true;
+              _this.getPkActiveData();
+            }
             _this.content = dat.content;
             _this.hls = dat.content.hls + "?shp_identify=302";
             _this.gift = dat.content.gift_list;
@@ -1276,10 +1277,10 @@ export default {
           }
         });
     },
-    // 获取pk数据
+    // 获取pk实时数据
     getPkActiveData() {
       const _this = this;
-      let json = { buid: this.bUid, quid: this.qUid };// 21950 21638
+      let json = { buid: _this.liveCt.buid, quid:  _this.liveCt.quid };
       _this.axios
         .post(api.pk_active_data, this.$qs.stringify(json))
         .then(function(res) {

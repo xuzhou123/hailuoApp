@@ -166,10 +166,27 @@
 import Vue from "vue";
 import api from "@/constant/api";
 export default {
-  props: {},
+  props: {
+    pkActiveData: {
+      type: Object,
+      default: {}
+    },
+    liveCt: {
+      type: Object,
+      default: {}
+    },
+    lUid: {
+      type: Number
+    },
+    rUid: {
+      type: Number
+    }
+  },
   data() {
     return {
-      rewardListShow: false // 显影本场贡献榜弹窗
+      rewardListShow: false, // 显隐本场贡献榜弹窗
+      topRewardL: [],
+      topRewardR: [],
     };
   },
   mounted() {},

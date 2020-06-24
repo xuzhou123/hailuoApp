@@ -83,9 +83,9 @@ export default {
             action: 7, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
             msgtype: 10,
             roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
-            user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
-            quid: this.liveCt.uid, // 请求方主播id
-            buid: this.pkFromData.quid, // 应答方主播id
+            user_nicename: this.pkFromData.user_nicename, // 请求方主播昵称
+            quid: this.pkFromData.quid, // 请求方主播id
+            buid: this.pkFromData.buid, // 应答方主播id
             pktime: 6 // pk时长
           }
         ]
@@ -106,9 +106,9 @@ export default {
             action: 6, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
             msgtype: 10,
             roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
-            user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
-            quid: this.liveCt.uid, // 请求方主播id
-            buid: this.pkFromData.quid, // 应答方主播id
+            user_nicename: this.pkFromData.user_nicename, // 请求方主播昵称
+            quid: this.pkFromData.quid, // 请求方主播id
+            buid: this.pkFromData.buid, // 应答方主播id
             pktime: 6 // pk时长
           }
         ]
@@ -122,7 +122,7 @@ export default {
       this.show = false;
 
       const _this = this;
-      let json = { quid: this.pkFromData.quid, buid: this.liveCt.uid };
+      let json = { quid: this.pkFromData.quid, buid: this.pkFromData.buid };
       _this.axios
         .post(api.show_agree_pk, this.$qs.stringify(json))
         .then(function(res) {
@@ -147,9 +147,9 @@ export default {
             action: 5, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
             msgtype: 10,
             roomnum: this.pkFromData.quid, // 应答方主播房间号=应答方主播id
-            user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
-            quid: this.liveCt.uid, // 请求方主播id
-            buid: this.pkFromData.quid, // 应答方主播id
+            user_nicename: this.pkFromData.user_nicename, // 请求方主播昵称
+            quid: this.pkFromData.quid, // 请求方主播id
+            buid: this.pkFromData.buid, // 应答方主播id
             pktime: 6 // pk时长
           }
         ]
