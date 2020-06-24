@@ -40,8 +40,10 @@ export default {
   },
   watch: {
     pkActiveData(newVal, oldVal) {
-      this.formatBlood();
-      this.setTime();
+      if (this.pkActiveData.pk_data&&this.pkActiveData.pk_data.anchor) {
+        this.formatBlood();
+        this.setTime();
+      }
     }
   },
   data() {

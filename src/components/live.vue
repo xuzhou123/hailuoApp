@@ -542,7 +542,7 @@ export default {
       }
     },
     update_pkdata: function(o) {
-      // console.log(o, "update_pkdata");
+      this.pkActiveData = JSON.parse(o).content;
     },
     conn: function(o) {
       console.log(o, "连接服务器回应");

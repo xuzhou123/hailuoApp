@@ -90,8 +90,7 @@ export default {
   },
   watch: {
     pkActiveData(newVal, oldVal) {
-      console.log(JSON.stringify(this.liveCt),' ================> liveCt <================')
-      console.log(JSON.stringify(newVal),' ================> pkActiveData <================')
+      console.log('================>       pkActiveData   start          <================',JSON.stringify(newVal),'================>            pkActiveData    end             <================')
       if (this.pkActiveData.pk_data&&this.pkActiveData.pk_data.anchor) {
         if (this.liveCt.quid == this.liveCt.uid) {
           this.lUid = this.pkActiveData.pk_data.q_uid;
@@ -196,6 +195,7 @@ export default {
           .name {
             display: inline-block;
             font-size: 0.3rem;
+            padding-right: 0.2rem;
             height: 0.7rem;
             line-height: 0.7rem;
             vertical-align: top;
