@@ -18,8 +18,8 @@
             :src="leftData.hls"
           ></video>
           <!-- pk结果 -->
-          <img class="pk-result" v-if="false" src="../../static/img/fail.png" alt />
-          <img class="pk-result" v-if="true" src="../../static/img/victory.png" alt />
+          <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id!=lUid" src="../../static/img/fail.png" alt />
+          <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id===lUid" src="../../static/img/victory.png" alt />
         </div>
         <div class="video-common video-r">
           <video
@@ -49,8 +49,12 @@
             />
           </div>
           <!-- pk结果 -->
-          <img class="pk-result" v-if="true" src="../../static/img/fail.png" alt />
-          <img class="pk-result" v-if="false" src="../../static/img/victory.png" alt />
+          <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id!=rUid" src="../../static/img/fail.png" alt />
+          <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id===rUid" src="../../static/img/victory.png" alt />
+        </div>
+        <div class="pk-room-result" v-if="['02:59','02:58','02:57'].includes(pk_room_data.punish_stime)">
+          <img v-if="pk_room_data.win_id==liveCt.uid" src="../../static/img/victory1.png" alt="">
+          <img v-if="pk_room_data.win_id!=liveCt.uid" src="../../static/img/fail1.png" alt="">
         </div>
       </div>
       <!-- 贡献榜排名组件 -->
@@ -85,7 +89,8 @@ export default {
       lUid: 0,
       rUid: 0,
       leftData: {},
-      rightData: {}
+      rightData: {},
+      pk_room_data: {} // pk数据
     };
   },
   watch: {
@@ -103,6 +108,7 @@ export default {
           this.rightData = this.pkActiveData.pk_data.anchor.q_uid_info;
           this.leftData = this.pkActiveData.pk_data.anchor.b_uid_info;
         }
+        this.pk_room_data = this.pkActiveData.pk_room_data;
         this.getis_attention(this.rightData.id);// 判断是否观众了对方主播
       }
     }
@@ -157,6 +163,7 @@ export default {
     left: 0;
     background: #fff;
     .video-box {
+      position: relative;
       height: 5rem;
       background: #ccc;
       font-size: 0;
@@ -222,6 +229,19 @@ export default {
         object-fit: cover;
         height: 100%;
         width: 100%;
+      }
+      .pk-room-result {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        img {
+          width: 2rem;
+        }
       }
     }
   }
