@@ -2,55 +2,26 @@
   <div class="pk-reward-list">
     <!-- 打赏前几名 -->
     <div class="top-reward">
-      <div class="top-reward-box top-reward-l" @click="init">
-        <div class="no-reward no-reward-l" v-if="false"></div>
-        <ul v-if="true">
-          <li>
+      <div class="top-reward-box top-reward-l" @click="showRewardList('L')">
+        <div class="no-reward no-reward-l" v-if="!topRewardL.length"></div>
+        <ul v-if="topRewardL.length">
+          <li v-for="(item, index) in topRewardL" :key="item.id">
             <div class="box">
-              <img class="avatar" src="../../static/img/default.jpg" alt />
-              <div class="top">1</div>
-            </div>
-          </li>
-          <li>
-            <div class="box">
-              <img class="avatar" src="../../static/img/default.jpg" alt />
-              <div class="top">2</div>
-            </div>
-          </li>
-          <li>
-            <div class="box">
-              <img class="avatar" src="../../static/img/default.jpg" alt />
-              <div class="top">3</div>
-            </div>
-          </li>
-          <li>
-            <div class="box">
-              <img class="avatar" src="../../static/img/default.jpg" alt />
-              <!-- <div class="top">4</div> -->
-              <img class="pk-mvp" src="../../static/img/pk-mvp.png" alt />
+              <img class="avatar" :src="item.avatar" alt />
+              <div class="top" v-if="item.is_mvp!=1">{{index+1}}</div>
+              <img class="pk-mvp" v-if="item.is_mvp==1" src="../../static/img/pk-mvp.png" alt />
             </div>
           </li>
         </ul>
       </div>
-      <div class="top-reward-box top-reward-r" @click="init">
-        <div class="no-reward no-reward-r" v-if="false"></div>
-        <ul v-if="true">
-          <li>
+      <div class="top-reward-box top-reward-r" @click="showRewardList('R')">
+        <div class="no-reward no-reward-r" v-if="!topRewardR.length"></div>
+        <ul v-if="topRewardR.length">
+          <li v-for="(item, index) in topRewardR" :key="item.id">
             <div class="box">
-              <img class="avatar" src="../../static/img/default.jpg" alt />
-              <div class="top">1</div>
-            </div>
-          </li>
-          <li>
-            <div class="box">
-              <img class="avatar" src="../../static/img/default.jpg" alt />
-              <div class="top">2</div>
-            </div>
-          </li>
-          <li>
-            <div class="box">
-              <img class="avatar" src="../../static/img/default.jpg" alt />
-              <div class="top">3</div>
+              <img class="avatar" :src="item.avatar" alt />
+              <div class="top" v-if="item.is_mvp!=1">{{index+1}}</div>
+              <img class="pk-mvp" v-if="item.is_mvp==1" src="../../static/img/pk-mvp.png" alt />
             </div>
           </li>
         </ul>
@@ -61,100 +32,23 @@
     <div class="reward-list" v-if="rewardListShow">
       <div class="list-box">
         <div class="title">本场PK贡献榜</div>
-        <div class="no-lists" v-if="false">
+        <div class="no-lists" v-if="!showData.length">
           <img src="../../static/img/no.png" alt />
           <div class="no-desc">帮助主播PK胜利，争夺MVP</div>
         </div>
-        <ul class="lists" v-if="true">
-          <li>
+        <ul class="lists" v-if="showData.length">
+          <li v-for="(item,index) in showData" :key="item.id">
             <div class="index">
-              <img src="../../static/img/pk-no1.png" alt />
+              <img v-if="index==0" src="../../static/img/pk-no1.png" alt />
+              <img v-else-if="index==1" src="../../static/img/pk-no2.png" alt />
+              <img v-else-if="index==2" src="../../static/img/pk-no3.png" alt />
+              <span v-else>{{index+1}}</span>
             </div>
             <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
+              <img :src="item.avatar" alt />
             </div>
-            <div class="name">徐洲</div>
-            <div class="num">333</div>
-          </li>
-          <li>
-            <div class="index">
-              <img src="../../static/img/pk-no2.png" alt />
-            </div>
-            <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
-            </div>
-            <div class="name">张翠</div>
-            <div class="num">333</div>
-          </li>
-          <li>
-            <div class="index">
-              <img src="../../static/img/pk-no3.png" alt />
-            </div>
-            <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
-            </div>
-            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
-            <div class="num">333</div>
-          </li>
-          <li>
-            <div class="index">
-              <span>4</span>
-            </div>
-            <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
-            </div>
-            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
-            <div class="num">333</div>
-          </li>
-          <li>
-            <div class="index">
-              <span>4</span>
-            </div>
-            <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
-            </div>
-            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
-            <div class="num">333</div>
-          </li>
-          <li>
-            <div class="index">
-              <span>4</span>
-            </div>
-            <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
-            </div>
-            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
-            <div class="num">333</div>
-          </li>
-          <li>
-            <div class="index">
-              <span>5</span>
-            </div>
-            <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
-            </div>
-            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
-            <div class="num">333</div>
-          </li>
-          <li>
-            <div class="index">
-              <span>6</span>
-            </div>
-            <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
-            </div>
-            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
-            <div class="num">3335656656565</div>
-          </li>
-          <li>
-            <div class="index">
-              <span>7</span>
-            </div>
-            <div class="avatar">
-              <img src="../../static/img/default.jpg" alt />
-            </div>
-            <div class="name">222ffffffffffffffffffffffffffffffffffffffffffffffffff</div>
-            <div class="num">3335656656565</div>
+            <div class="name">{{item.user_nicename}}</div>
+            <div class="num">{{item.pk_coin_score}}</div>
           </li>
         </ul>
       </div>
@@ -182,17 +76,34 @@ export default {
       type: Number
     }
   },
+  watch: {
+    pkActiveData(newVal, oldVal) {
+      if (this.pkActiveData.pk_data&&this.pkActiveData.pk_data.anchor) {
+        this.initData();
+      }
+    }
+  },
   data() {
     return {
       rewardListShow: false, // 显隐本场贡献榜弹窗
       topRewardL: [],
       topRewardR: [],
+      showData: []
     };
   },
   mounted() {},
   methods: {
-    init(data) {
+    initData() {
+      this.topRewardL = this.pkActiveData.pk_room_topuser_data['room_'+this.lUid];
+      this.topRewardR = this.pkActiveData.pk_room_topuser_data['room_'+this.rUid];
+    },
+    showRewardList(flag) {
       this.rewardListShow = true;
+      if(flag==='L') {
+        this.showData = this.topRewardL;
+      } else if(flag==='R') {
+        this.showData = this.topRewardR;
+      }
     }
   }
 };
