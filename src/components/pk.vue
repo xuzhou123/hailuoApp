@@ -52,7 +52,7 @@
           <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id!=rUid" src="../../static/img/fail.png" alt />
           <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id===rUid" src="../../static/img/victory.png" alt />
         </div>
-        <div class="pk-room-result" v-if="['02:59','02:58','02:57'].includes(pk_room_data.punish_stime)">
+        <div class="pk-room-result" v-if="['02:59','02:58','02:57','02:56','02:55'].includes(pk_room_data.punish_stime)">
           <img v-if="pk_room_data.win_id==liveCt.uid" src="../../static/img/victory1.png" alt="">
           <img v-if="pk_room_data.win_id!=liveCt.uid" src="../../static/img/fail1.png" alt="">
         </div>
