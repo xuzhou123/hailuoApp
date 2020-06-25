@@ -58,13 +58,13 @@ export default {
       this.bloodLChange = true;
       setTimeout(()=>{
         this.bloodLChange = false;
-      },500);
+      },300);
     },
     bloodR(newVal, oldVal) {
       this.bloodRChange = true;
       setTimeout(()=>{
         this.bloodRChange = false;
-      },500);
+      },300);
     }
   },
   data() {
