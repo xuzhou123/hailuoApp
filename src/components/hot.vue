@@ -42,8 +42,8 @@
           </div>
 
           <!-- 是否正在pk标识 -->
-          <div class="pk-flag">
-            <img v-if="true" src="../../static/img/icon-pk.png" alt />
+          <div class="pk-flag" v-if="item.ispk==1">
+            <img src="../../static/img/icon-pk.png" alt />
           </div>
         </li>
       </ul>
@@ -488,6 +488,10 @@ export default {
       bottom: 1rem;
       left: 0.2rem;
       height: 0.5rem;
+      img {
+        height: 100%;
+        width: auto;
+      }
     }
   }
   /*li:nth-of-type(even){
