@@ -3,6 +3,8 @@
     <div class="wrapper" ref="wrapper">
       <!--<div class="wrapper" ref="wrapper" :style="styleobj()">-->
       <div class="video">
+        <!-- x-pk -->
+        <xPk :pkActiveData="pkActiveData" :liveCt="liveCt" @showM="showM" v-if="xPkflag" />
         <!-- 直播 -->
         <div id="chatArea" class="chat_area" ref="chat_area">
           <div class="tanmu_scroll" id="tanmuScroll" @click="videoflag()">
@@ -374,6 +376,7 @@ import ListInfo from "@/components/ListInfo";
 import list_model from "@/components/list_model";
 import pkList from "@/components/pkList";
 import byPk from "@/components/byPk";
+import xPk from "@/components/pk";
 import { Toast, MessageBox } from "mint-ui";
 import VueSocketio from "vue-socket.io"; //socket即时通讯
 import domain from "../../untils/config";
@@ -384,6 +387,7 @@ export default {
       kickid: 0,
       shutid: 0,
       pktime: 4,
+      xPkflag: false,
       pkflag: false,
       pkflag1: false,
       pkflag2: false,
@@ -474,7 +478,8 @@ export default {
       quid: "",
       buid: "",
       fswf_svga: false,
-      pkFromData: {} // pk邀请者的信息
+      pkFromData: {}, // pk邀请者的信息
+      pkActiveData: {} //pk实时数据
     };
   },
   sockets: {
@@ -634,6 +639,9 @@ export default {
         }
       }
     },
+    update_pkdata: function(o) {
+        this.pkActiveData = JSON.parse(o).content;
+    },
     conn: function(o) {
       console.log(o, "连接服务器回应");
     },
@@ -655,7 +663,8 @@ export default {
     ListInfo,
     list_model,
     pkList,
-    byPk
+    byPk,
+    xPk
   },
   mounted() {
     var _this = this;
@@ -812,6 +821,7 @@ export default {
      * @param data
      */
     testlink(data) {
+        this.acceptPk()
       var _this = this;
       var action = data.action;
       var quid = data.quid; //请求连麦的主播
@@ -828,14 +838,6 @@ export default {
           /* l_t = setTimeout(function () {
                             Linkmic.linkmic_busy(quid, buid, user_nicename, pktime2);
                         }, 10000);*/
-
-          // MessageBox.confirm(user_nicename + '向您发起连麦请求','海螺直播').then(function (index) {
-          //     var msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"5","msgtype":"10","roomnum":"' + roomnum + '","user_nicename":"' + user_nicename + '","quid":"' + quid + '","buid":"' + buid + '","pktime":"' + pktime2 + '"}]}';
-          //     _this.clickButton(msg)
-          // }, function (index) {
-          //     var msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"6","msgtype":"10","roomnum":"' + roomnum + '","user_nicename":"' + user_nicename + '","quid":"' + quid + '","buid":"' + buid + '","pktime":"' + pktime2 + '"}]}';
-          //     _this.clickButton(msg)
-          // });
         }
       } else if (action == 2) {
         //更新礼物我方主播的礼物
@@ -871,6 +873,7 @@ export default {
         // 主播正忙碌
         if (roomnum == this.videoUrl) {
           this.showM("主播正忙碌");
+          this.acceptPk();
         }
       } else if (action == 8) {
         // 展示PK样式 pk倒计时
@@ -897,6 +900,11 @@ export default {
                     }*/
       }
     }, //连麦pk
+    // 同意pk 切换pk画面
+    acceptPk() {
+        this.xPkflag = true;
+        this.sendInfo("resetVideo", { key: "" });
+    },
     getPerson2() {
       var _this = this;
       this.axios.get(apiy.person).then(function(res) {

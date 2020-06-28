@@ -55,6 +55,11 @@
                         }
                     });
                 });
+                api.addEventListener({//重新推流
+                    name: 'resetVideo'
+                }, function(va, err) {
+                    _this.resetVideo();
+                });
 
                 api.addEventListener({//关闭
                     name: 'close'
@@ -248,6 +253,33 @@
                 });
                 this.openUrl(apiy.hosturl+'openVideo2')
 
+            },
+            resetVideo() {
+                var _this=this;
+                api.setFrameAttr({
+                    name:'main3',
+                    rect:{
+                        x:0,    //会被忽略
+                        y:0,    //会被忽略
+                        w:0,
+                        h:0
+                    }
+                });
+                // _this.aliyunLive.startPreview({
+                //     fixedOn:'main3',
+                //     fixed:true,
+                //     rect:{
+                //         x:0,
+                //         y:0,
+                //         w:100,
+                //         h:100
+                //     }
+                // },function(ret){
+                //     if(ret.status==true){
+                //         _this.aliyunLive.reconnectPush();
+                //         alert(333)
+                //     }
+                // })
             },
             openUrl(o){
                 api.openFrame({

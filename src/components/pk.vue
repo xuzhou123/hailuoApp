@@ -95,14 +95,13 @@ export default {
   },
   watch: {
     pkActiveData(newVal, oldVal) {
-      console.log('================>       pkActiveData   start          <================',JSON.stringify(newVal),'================>            pkActiveData    end             <================')
       if (this.pkActiveData.pk_data&&this.pkActiveData.pk_data.anchor) {
-        if (this.liveCt.quid == this.liveCt.uid) {
+        if (this.pkActiveData.pk_data.q_uid == this.liveCt.uid) {
           this.lUid = this.pkActiveData.pk_data.q_uid;
           this.rUid = this.pkActiveData.pk_data.b_uid;
           this.leftData = this.pkActiveData.pk_data.anchor.q_uid_info;
           this.rightData = this.pkActiveData.pk_data.anchor.b_uid_info;
-        } else if(this.liveCt.buid == this.liveCt.uid) {
+        } else if(this.pkActiveData.pk_data.b_uid == this.liveCt.uid) {
           this.lUid = this.pkActiveData.pk_data.b_uid;
           this.rUid = this.pkActiveData.pk_data.q_uid;
           this.rightData = this.pkActiveData.pk_data.anchor.q_uid_info;
