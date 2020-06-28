@@ -124,6 +124,7 @@ export default {
     },
     // 邀请pk
     invitationPk(item) {
+      this.show='';
       let val = {
         retcode: "000000",
         retmsg: "ok",
@@ -146,6 +147,7 @@ export default {
           }
         ]
       };
+      this.$emit("showM", "您已发出邀请");
       this.$emit("clickButton", JSON.stringify(val));
     }
   }

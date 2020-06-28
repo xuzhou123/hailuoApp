@@ -108,6 +108,7 @@
           <!--<i class="chat_ico chat_show_pop_speak js-download" @click="textInfo()"  ></i>-->
           <i class="chat_ico1" @click="share=true"></i>
           <img
+            v-if="!xPkflag"
             class="show-pk-list"
             @click="$refs.pkList.init(liveCt)"
             src="../../static/img/pk-icon.png"
@@ -360,7 +361,7 @@
     </div>
 
     <!-- pk列表组件 -->
-    <pkList ref="pkList" @clickButton="clickButton" />
+    <pkList ref="pkList" @clickButton="clickButton" @showM="showM" />
     <!-- 被邀请pk组件 -->
     <byPk ref="byPk" @clickButton="clickButton" @showM="showM" />
   </div>
@@ -2905,12 +2906,11 @@ video {
 .chat_banner {
   .show-pk-list {
     position: absolute;
-    left: calc(50% - 30px);
+    left: calc(50% - 20px);
     top: 0;
     height: 40px;
-    width: 60px;
+    width: auto;
     border-radius: 5px;
-    background: #5acfff;
   }
 }
 
