@@ -363,7 +363,9 @@
     <!-- pk列表组件 -->
     <pkList ref="pkList" @clickButton="clickButton" @showM="showM" />
     <!-- 被邀请pk组件 -->
-    <byPk ref="byPk" @clickButton="clickButton" @showM="showM" />
+    <byPk ref="byPk" @clickButton="clickButton" @showM="showM" @acceptPk="acceptPk" />
+    <!-- 提示是否结束本次Pk弹窗 -->
+    <closePkDialog ref="closePkDialog" @clickButton="clickButton" @xClosePk="xClosePk" :closePkDialogShow.sync="closePkDialogShow" v-if="closePkDialogShow" />
   </div>
 </template>
 
@@ -377,6 +379,7 @@ import ListInfo from "@/components/ListInfo";
 import list_model from "@/components/list_model";
 import pkList from "@/components/pkList";
 import byPk from "@/components/byPk";
+import closePkDialog from "@/components/closePkDialog";
 import xPk from "@/components/pk";
 import { Toast, MessageBox } from "mint-ui";
 import VueSocketio from "vue-socket.io"; //socket即时通讯
@@ -480,7 +483,8 @@ export default {
       buid: "",
       fswf_svga: false,
       pkFromData: {}, // pk邀请者的信息
-      pkActiveData: {} //pk实时数据
+      pkActiveData: {}, //pk实时数据
+      closePkDialogShow: false
     };
   },
   sockets: {
@@ -665,7 +669,8 @@ export default {
     list_model,
     pkList,
     byPk,
-    xPk
+    xPk,
+    closePkDialog
   },
   mounted() {
     var _this = this;
@@ -822,7 +827,6 @@ export default {
      * @param data
      */
     testlink(data) {
-        this.acceptPk()
       var _this = this;
       var action = data.action;
       var quid = data.quid; //请求连麦的主播
@@ -830,6 +834,8 @@ export default {
       var user_nicename = data.user_nicename; //请求连麦主播的名字
       var pktime2 = data.pktime; //pk时间
       var roomnum = data.roomnum; //主播id
+      _this.quid = data.quid;
+      _this.buid = data.buid;
 
       if (action == 1) {
         /* 请求连麦 */
@@ -863,6 +869,7 @@ export default {
         //接受
         if (roomnum == this.videoUrl) {
           this.showM("主播接受了您的PK连麦请求");
+          this.acceptPk();
           // this.pkFun3(quid,buid)
         }
       } else if (action == 6) {
@@ -874,7 +881,6 @@ export default {
         // 主播正忙碌
         if (roomnum == this.videoUrl) {
           this.showM("主播正忙碌");
-          this.acceptPk();
         }
       } else if (action == 8) {
         // 展示PK样式 pk倒计时
@@ -882,6 +888,7 @@ export default {
         //beipk(quid, buid, pktime2)
       } else if (action == 9) {
         // 关闭窗口
+        this.closePkSet();
         alert("已经关闭连麦！");
         //duifa(roomnum)
       } else if (action == 10) {
@@ -905,6 +912,31 @@ export default {
     acceptPk() {
         this.xPkflag = true;
         this.sendInfo("resetVideo", { key: "" });
+    },
+    closePkSet() {
+        this.xPkflag = false;
+        this.sendInfo("resetVideo1", { key: "" });
+    },
+    // 关闭pk
+    xClosePk() {
+        this.closePkSet();
+        var _this = this;
+        var msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"9","msgtype":"10","roomnum":"' + this.buid + '"}]}';
+        if (this.quid != this.videoUrl) {
+            msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"9","msgtype":"10","roomnum":"' + this.quid + '"}]}';
+        }
+        _this.clickButton(msg);
+        var json = { buid: _this.buid, quid: _this.quid };
+        this.axios
+            .post(apiy.show_end_pk, this.$qs.stringify(json))
+            .then(function(res) {
+                var dat = res.data;
+                if (dat.state == 0) {
+                    _this.showM(dat.msg);
+                } else {
+                    _this.showM(dat.msg);
+                }
+            });
     },
     getPerson2() {
       var _this = this;
@@ -1345,11 +1377,16 @@ export default {
     },
     closewindow() {
       var _this = this;
-      this.axios.post(apiy.live_close_show_live_room).then(function(res) {
-        //if(dat.state==0){
-        _this.closegif();
-        //}
-      });
+      // 判断是否在pk中
+      if(this.xPkflag) {
+          this.closePkDialogShow = true;
+      } else {
+        this.axios.post(apiy.live_close_show_live_room).then(function(res) {
+            //if(dat.state==0){
+            _this.closegif();
+            //}
+        });
+      }
     },
     videoflag() {
       this.valueinput = false;

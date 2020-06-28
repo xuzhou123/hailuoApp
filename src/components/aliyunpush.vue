@@ -60,6 +60,11 @@
                 }, function(va, err) {
                     _this.resetVideo();
                 });
+                api.addEventListener({//重新推流
+                    name: 'resetVideo1'
+                }, function(va, err) {
+                    _this.resetVideo1();
+                });
 
                 api.addEventListener({//关闭
                     name: 'close'
@@ -280,6 +285,20 @@
                 //         alert(333)
                 //     }
                 // })
+            },
+            resetVideo1() {
+                var _this=this;
+                var apiheight=window.screen.height
+                var apiwidth=window.screen.width
+                api.setFrameAttr({
+                    name:'main3',
+                    rect:{
+                        x:0,    //会被忽略
+                        y:0,
+                        w:apiwidth,
+                        h:apiheight
+                    }
+                });
             },
             openUrl(o){
                 api.openFrame({

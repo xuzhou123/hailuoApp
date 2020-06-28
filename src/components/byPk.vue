@@ -155,6 +155,7 @@ export default {
         ]
       };
       this.$emit("showM", "您接受了PK连麦请求");
+      this.$emit("acceptPk");
       this.$emit("clickButton", JSON.stringify(val));
     }
   },

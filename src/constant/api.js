@@ -90,6 +90,7 @@ export default {
   show_search_pklink_list:'/h5/index.php/show_search_pklink_list', // 搜索PK主播
   show_agree_pk:'/h5/index.php/show_agree_pk', // 同意PK
   pk_active_data:'/h5/index.php/pk_active_data', // PK实时数据
+  show_end_pk:'/h5/index.php/show_end_pk', // 结束pk
  // hosturl:'http://192.168.31.102:8080/#/'
 
 }
