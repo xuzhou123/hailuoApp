@@ -184,6 +184,8 @@
           />
           <button @click="Send">发送</button>
         </div>
+
+        <div class="GiftPanel-mask" v-show="flag" @click="flag=false"></div>
         <div class="GiftPanel" v-show="flag">
           <mt-swipe :auto="300000000" :continuous="false">
             <mt-swipe-item>
@@ -1940,6 +1942,14 @@ video {
   }
 }
 
+.GiftPanel-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+}
 .GiftPanel {
   position: fixed;
   left: 0;
