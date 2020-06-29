@@ -6,7 +6,7 @@
       <!-- pk画面 -->
       <div class="video-box">
         <div class="video-common video-l">
-          <!-- <video
+          <video
             autoplay="autoplay"
             ref="html5player"
             preload="auto"
@@ -16,7 +16,7 @@
             webkit-playsinline="true"
             playsinline="true"
             :src="leftData.hls"
-          ></video> -->
+          ></video>
           <!-- pk结果 -->
           <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id!=lUid" src="../../static/img/fail.png" alt />
           <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id===lUid" src="../../static/img/victory.png" alt />

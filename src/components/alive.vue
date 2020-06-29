@@ -489,6 +489,7 @@ export default {
   },
   sockets: {
     broadcastingListen: function(o) {
+      // this.xClosePk();
       console.log(o, " ===> broadcastingListen");
       var _this = this;
       for (var i in o) {
@@ -645,7 +646,10 @@ export default {
       }
     },
     update_pkdata: function(o) {
-        this.pkActiveData = JSON.parse(o).content;
+      let _o = JSON.parse(o).content;
+      if(_o.room_num.includes(this.liveCt.uid)) {
+        this.pkActiveData = _o;
+      }
     },
     conn: function(o) {
       console.log(o, "连接服务器回应");
@@ -869,7 +873,7 @@ export default {
         //接受
         if (roomnum == this.videoUrl) {
           this.showM("主播接受了您的PK连麦请求");
-          this.acceptPk();
+          this.acceptPk(quid,buid);
           // this.pkFun3(quid,buid)
         }
       } else if (action == 6) {
@@ -909,10 +913,12 @@ export default {
       }
     }, //连麦pk
     // 同意pk 切换pk画面
-    acceptPk() {
+    acceptPk(quid,buid) {
         this.xPkflag = true;
         this.sendInfo("resetVideo", { key: "" });
+        this.getPkActiveData(quid,buid);
     },
+    // 切换为主播自己界面
     closePkSet() {
         this.xPkflag = false;
         this.sendInfo("resetVideo1", { key: "" });
@@ -921,6 +927,8 @@ export default {
     xClosePk() {
         this.closePkSet();
         var _this = this;
+        // this.buid = 21638;
+        // this.quid = 21950;
         var msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"9","msgtype":"10","roomnum":"' + this.buid + '"}]}';
         if (this.quid != this.videoUrl) {
             msg = '{"retcode":"000000","retmsg":"ok","msg":[{"_method_":"testlink","action":"9","msgtype":"10","roomnum":"' + this.quid + '"}]}';
@@ -937,6 +945,23 @@ export default {
                     _this.showM(dat.msg);
                 }
             });
+    },
+    // 获取pk实时数据
+    getPkActiveData(quid,buid) {
+      const _this = this;
+      let json = { buid: buid, quid: quid };
+      _this.axios
+        .post(apiy.pk_active_data, this.$qs.stringify(json))
+        .then(function(res) {
+          var dat = res.data;
+          if (dat.state == 0) {
+            _this.pkActiveData = dat.content;
+          } else {
+            Toast({
+              message: dat.msg
+            });
+          }
+        });
     },
     getPerson2() {
       var _this = this;
@@ -1651,6 +1676,10 @@ export default {
           if (dat.state == 0) {
             // _this.LinkRouter(dat.content.hls);
             _this.liveCt = dat.content.liveinfo;
+            // 判断是否正在Pk
+            if(_this.liveCt.ispk==1) {
+              _this.xPkflag = true;
+            }
             _this.content = dat.content;
             _this.hls = dat.content.hls + "?shp_identify=302";
             _this.gift = dat.content.gift_list;

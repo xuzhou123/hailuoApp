@@ -53,6 +53,7 @@ export default {
   mounted() {},
   methods: {
     init(liveCt, pkFromData) {
+      clearInterval(this.timer);
       this.show = true;
       this.liveCt = liveCt;
       this.pkFromData = pkFromData;
@@ -155,7 +156,7 @@ export default {
         ]
       };
       this.$emit("showM", "您接受了PK连麦请求");
-      this.$emit("acceptPk");
+      this.$emit("acceptPk",this.pkFromData.quid,this.pkFromData.buid);
       this.$emit("clickButton", JSON.stringify(val));
     }
   },
