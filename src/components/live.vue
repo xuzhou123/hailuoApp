@@ -66,6 +66,7 @@
         >
           <a class="new_play_btn"></a>
         </div>
+        <div class="more-videos" @click="goRouter('/?i=0')"><img src="../../static/img/video1.png" alt=""> 更多直播 ></div>
         <div id="chatArea" class="chat_area" ref="chat_area" @click="videoflag()">
           <div class="tanmu_scroll" id="tanmuScroll">
             <ul>
@@ -2446,6 +2447,23 @@ video {
   font-size: 0.28rem;
   background: rgba(0, 0, 0, 0.5);
   z-index: 3;
+}
+.more-videos {
+  padding: 0 0.2rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  color: #fff;
+  border-radius: 0.3rem 0 0 0.3rem;
+  position: absolute;
+  top: 1.2rem;
+  right: 0;
+  font-size: 0.2rem;
+  background: #222121;
+  z-index: 3;
+  img {
+    height: 0.3rem;
+    margin-top: 0.05rem;
+  }
 }
 .chat_gift {
   background: url("../../static/img/lw.png") !important;
