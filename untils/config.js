@@ -1,6 +1,6 @@
 export default{
-    domain:"http://wu-live.rome9.com/",
+    domain:"http://test-live.rome9.com/",
     // domain:"http://live.hailuolive.com/",
     staticDomain:'http://qiniu.hailuolive.com/',
-    socketDomain:'http://wu-live.rome9.com:19967'
+    socketDomain:'http://test-live.rome9.com:12886'
 }

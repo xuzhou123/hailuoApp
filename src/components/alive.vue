@@ -1036,7 +1036,7 @@ export default {
       qq.shareNews(
         {
           url:
-            "http://live.hailuozhibo.com/h5/view1/#/" +
+            "http://live.hailuozhibo.com/h5/hhhhhhhh/#/" +
             _this.liveCt.uid +
             "&code=" +
             localStorage.getItem("code"),

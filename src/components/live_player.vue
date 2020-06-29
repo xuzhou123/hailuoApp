@@ -274,7 +274,7 @@
     import VueSocketio from 'vue-socket.io';//socket即时通讯
     import domain from '../../untils/config'
     Vue.use(VueSocketio,domain.socketDomain);//socket即时通讯
-    //Vue.use(VueSocketio,'http://www.huidaxinzhi.com:19967');//socket即时通讯
+    //Vue.use(VueSocketio,'http://www.huidaxinzhi.com:12886');//socket即时通讯
     export default {
         data() {
             return {
@@ -650,7 +650,7 @@
                 var _this=this
                 var qq = api.require('QQPlus');
                 qq.shareNews({
-                    url:domain.domain+'h5/view1/#/'+'live?id='+_this.liveCt.uid+'&code='+localStorage.getItem('code'),
+                    url:domain.domain+'h5/hhhhhhhh/#/'+'live?id='+_this.liveCt.uid+'&code='+localStorage.getItem('code'),
                     title: _this.liveCt.user_nicename+'正在直播！[海螺直播]',
                     description: '好久不见,想念你们，如果你也想看看最近我的改变，欢迎来到我的直播间！',
                     imgUrl:'',
@@ -683,7 +683,7 @@
                     description: '好久不见,想念你们，如果你也想看看最近我的改变，欢迎来到我的直播间！',
                    // thumb: 'widget://image/copy.jpg',
                     thumb: '',
-                    contentUrl:domain.domain+'h5/view1/#/'+'live?id='+_this.liveCt.uid+'&code='+localStorage.getItem('code')
+                    contentUrl:domain.domain+'h5/hhhhhhhh/#/'+'live?id='+_this.liveCt.uid+'&code='+localStorage.getItem('code')
                 }, function(ret, err) {
                     if (ret.status) {
                         alert('分享成功');

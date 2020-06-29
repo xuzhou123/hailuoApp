@@ -13,8 +13,8 @@ const ftpDebug = () => {
     './dist/**'
   ];
   return gulp.src(globs, { base: './dist/*', buffer: false })
-    .pipe(conn.newer('/view1')) // only upload newer files
-    .pipe(conn.dest('/view1'));
+    .pipe(conn.newer('/hhhhhhhh')) // only upload newer files
+    .pipe(conn.dest('/hhhhhhhh'));
 };
 
 // 上线

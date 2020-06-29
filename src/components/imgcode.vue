@@ -42,7 +42,7 @@
             },
             qrcode () {
                 var host = window.location.host;
-                var kcp='http://'+host+'/h5/view1/#/resg?person='+this.qrCode
+                var kcp='http://'+host+'/h5/hhhhhhhh/#/resg?person='+this.qrCode
                 let qrcode = new QRCode('qrcode', {
                     width:100,  // 设置宽度
                     height:100, // 设置高度

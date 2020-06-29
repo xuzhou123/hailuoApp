@@ -123,7 +123,7 @@ import VueSocketio from 'vue-socket.io';//socket即时通讯
 //console.log(api.send_gift)
 import domain from '../../untils/config'
 Vue.use(VueSocketio,domain.socketDomain);//socket即时通讯
-//Vue.use(VueSocketio,'http://www.huidaxinzhi.com:19967/');//socket即时通讯
+//Vue.use(VueSocketio,'http://www.huidaxinzhi.com:12886/');//socket即时通讯
 
 export default {
   	data() {

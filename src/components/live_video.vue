@@ -38,7 +38,7 @@ export default {
   	},
     methods: {
      goRouter(o) {
-         //window.location.href='http://www.hailuozhibo.com/h5/view1/#/'
+         //window.location.href='http://www.hailuozhibo.com/h5/hhhhhhhh/#/'
          this.$router.push({
            path: o
         })
