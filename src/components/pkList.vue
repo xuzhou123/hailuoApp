@@ -140,7 +140,7 @@ export default {
             pktime: 6, // pk时长
             avatar: this.liveCt.avatar, //请求方头像
             sex: this.liveCt.sex, //请求方性别
-            vote_total: this.liveCt.vote_total, //请求方累计音浪
+            vote_total: this.liveCt.vote_total, //请求方累计海螺
             fans_num: this.liveCt.fans_num, //请求方观众
             level_anchor: this.liveCt.level_anchor, //请求方等级
             level: this.liveCt.level //请求方等级

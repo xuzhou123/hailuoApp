@@ -15,8 +15,10 @@
             :poster="leftData.avatar"
             webkit-playsinline="true"
             playsinline="true"
+            :muted="from=='zhubo'"
             :src="leftData.hls"
           ></video>
+          {{JSON.stringify(pk_room_data)}}
           <!-- pk结果 -->
           <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id!=lUid" src="../../static/img/fail.png" alt />
           <img class="pk-result" v-if="pk_room_data.room_state==='punish'&&pk_room_data.win_id===lUid" src="../../static/img/victory.png" alt />
@@ -56,6 +58,9 @@
           <img v-if="pk_room_data.win_id==liveCt.uid" src="../../static/img/victory1.png" alt="">
           <img v-if="pk_room_data.win_id!=liveCt.uid" src="../../static/img/fail1.png" alt="">
         </div>
+        <div class="pk-room-result" v-else-if="['04:59','04:58','04:57','04:56','04:55'].includes(pk_room_data.pk_stime)">
+          <img src="../../static/img/victory1.png" alt="">
+        </div>
       </div>
       <!-- 贡献榜排名组件 -->
       <pkRewardList ref="pkRewardList" :pkActiveData="pkActiveData" :liveCt="liveCt" :lUid="lUid" :rUid="rUid" />
@@ -70,6 +75,10 @@ import bloodBar from "@/components/bloodBar";
 import pkRewardList from "@/components/pkRewardList";
 export default {
   props: {
+    from: {
+      type: String,
+      default: ''
+    },
     pkActiveData: {
       type: Object,
       default: {}

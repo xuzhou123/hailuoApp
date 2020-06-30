@@ -4,7 +4,7 @@
       <!--<div class="wrapper" ref="wrapper" :style="styleobj()">-->
       <div class="video">
         <!-- x-pk -->
-        <xPk :pkActiveData="pkActiveData" :liveCt="liveCt" @showM="showM" v-if="xPkflag" />
+        <xPk :pkActiveData="pkActiveData" :liveCt="liveCt" :from="'zhubo'" @showM="showM" v-if="xPkflag" />
         <!-- 直播 -->
         <div id="chatArea" class="chat_area" ref="chat_area">
           <div class="tanmu_scroll" id="tanmuScroll" @click="videoflag()">

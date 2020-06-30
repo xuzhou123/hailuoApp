@@ -20,7 +20,7 @@
                 <img src="../../static/img/nan.png" v-if="pkFromData.sex===1" alt />
                 <img src="../../static/img/nv.png" v-if="pkFromData.sex===2" alt />
                 <span class="audience">{{pkFromData.fans_num}}观众</span>
-                <span class="yinlang">{{pkFromData.vote_total}}累计音浪</span>
+                <span class="yinlang">{{pkFromData.vote_total}}累计海螺</span>
               </div>
             </div>
           </div>
