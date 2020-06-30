@@ -19,7 +19,8 @@
           </div>
         </div>
         <div class="invitation-pk">
-          <div class="invitation-btn" @click="$emit('invitationPk',item)">邀请PK</div>
+          <div class="invitation-btn pking" v-if="item.ispk==1">PK中</div>
+          <div class="invitation-btn" v-else-if="item.islive==1" @click="$emit('invitationPk',item)">邀请PK</div>
         </div>
       </li>
     </ul>
@@ -110,6 +111,9 @@ export default {
           font-size: 0.2rem;
           border-radius: 0.05rem;
           background: #326aff;
+          &.pking {
+            background: #ccc;
+          }
         }
       }
     }
