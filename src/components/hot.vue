@@ -441,12 +441,12 @@ export default {
   overflow: hidden;
   margin-top: 0.1%;
   li {
-    width: 50%;
-    height: 7.5rem;
+    width: 48.5vw;
+    height: 48.5vw;
     float: left;
-    margin-top: 0.6%;
+    margin: 1vw 0 0 1vw;
+    border-radius: 0.2rem;
     position: relative;
-    margin-left: 0;
     background-size: cover !important;
     img {
       width: 100%;
