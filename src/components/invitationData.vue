@@ -14,7 +14,7 @@
           <div class="two">
             <img src="../../static/img/nan.png" v-if="item.sex===1" alt />
             <img src="../../static/img/nv.png" v-if="item.sex===2" alt />
-            <span :class="{'nan':item.sex===1,'nv':item.sex===2}">{{item.fans_num}}观众</span>
+            <span :class="{'nan':item.sex===1,'nv':item.sex===2}">{{item.fans_num}}粉丝</span>
             <span class="yinlang">{{item.vote_total}}累计海螺</span>
           </div>
         </div>
