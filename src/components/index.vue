@@ -87,13 +87,13 @@ export default {
   },
   methods: {
     videosgift() {
-      this.goRouter("/aliyunpush");
-      // if(window.navigator.userAgent.toLowerCase().indexOf("apicloud")>=0){
-      //     this.goRouter('/')
-      // }else{
-      //   this.downloadApp();
-      //   this.showM("仅只支持app内直播,请微信公众号搜索‘海螺直播'下载对应app!")
-      // }
+      // this.goRouter("/aliyunpush");
+      if(window.navigator.userAgent.toLowerCase().indexOf("apicloud")>=0){
+          this.goRouter('/')
+      }else{
+        this.downloadApp();
+        this.showM("仅只支持app内直播,请微信公众号搜索‘海螺直播'下载对应app!")
+      }
     },
     downloadApp(){
       var _this=this;
