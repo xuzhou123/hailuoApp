@@ -24,7 +24,9 @@ export default {
     const isCatch = localStorage.getItem("isCatch");
     if (isCatch === null) {
       this.visible = true;
-      this.loadData();
+      setTimeout(()=>{
+        this.loadData();
+      },10000)
     }
   },
   methods: {

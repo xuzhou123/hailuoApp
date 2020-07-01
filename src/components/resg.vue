@@ -151,20 +151,40 @@ import { Toast } from 'mint-ui'
             this.axios.post(api.register,this.$qs.stringify(json))
             .then(function(res){
               if(res.data.state==0){
-                  _this.showM(res.data.msg+'1秒后跳转');
-                  var ll=localStorage.getItem('code')
-                  if(ll!=undefined&&ll!=null&&ll!=''){
-                      localStorage.setItem('code','')
-                      _this.goHistroy('/live?id='+ll)
-                  }else{
-                      setTimeout(function(){
-                          _this.goHistroy('/')
-                      },1000)
+                  if(window.navigator.userAgent.toLowerCase().indexOf("apicloud")>=0){
+                    _this.showM(res.data.msg+'1秒后跳转');
+                    var ll=localStorage.getItem('code')
+                    if(ll!=undefined&&ll!=null&&ll!=''){
+                        localStorage.setItem('code','')
+                        _this.goHistroy('/live?id='+ll)
+                    }else{
+                        setTimeout(function(){
+                            _this.goHistroy('/')
+                        },1000)
+                    }
+                  }else {
+                    _this.downloadApp();
                   }
                 }else{
                   _this.showM(res.data.msg);
                 }
               })
+          },
+          downloadApp:function(){
+            var _this=this;
+            _this.axios.get(api.register_success_download)
+            .then(function(res){
+              if(res.data.state==0){
+                let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+                if(isiOS) {
+                  window.location.href = res.data.content.ios_url;
+                } else {
+                  window.location.href = res.data.content.android_url;
+                }
+              }else{
+                _this.showM(res.data.msg);
+              }
+            })
           },
           countNum:function(){
             this.countdown=60;

@@ -88,12 +88,28 @@ export default {
   methods: {
     videosgift() {
       this.goRouter("/aliyunpush");
-      //  if(window.navigator.userAgent.toLowerCase().indexOf("apicloud")>=0){
-      //      this.goRouter('/aliyunpush')
-
-      //   }else{
-      //       this.showM("仅只支持app内直播,请微信公众号搜索‘海螺直播'下载对应app!")
-      //   }
+      // if(window.navigator.userAgent.toLowerCase().indexOf("apicloud")>=0){
+      //     this.goRouter('/')
+      // }else{
+      //   this.downloadApp();
+      //   this.showM("仅只支持app内直播,请微信公众号搜索‘海螺直播'下载对应app!")
+      // }
+    },
+    downloadApp(){
+      var _this=this;
+      _this.axios.get(api.register_success_download)
+      .then(function(res){
+        if(res.data.state==0){
+          let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+          if(isiOS) {
+            window.location.href = res.data.content.ios_url;
+          } else {
+            window.location.href = res.data.content.android_url;
+          }
+        }else{
+          _this.showM(res.data.msg);
+        }
+      })
     },
     showM(o) {
       // this.$root.Hub.$emit('child',{msg:o,flag:true});
