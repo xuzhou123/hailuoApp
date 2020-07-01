@@ -92,6 +92,7 @@ export default {
   pk_active_data:'/h5/index.php/pk_active_data', // PK实时数据
   show_end_pk:'/h5/index.php/show_end_pk', // 结束pk
   register_success_download:'/h5/index.php/register_success_download', // 非app中注册后跳转到下载app链接
+  show_pk_minute_list:'/h5/index.php/show_pk_minute_list', // 选择pk时长
  // hosturl:'http://192.168.31.102:8080/#/'
 
 }

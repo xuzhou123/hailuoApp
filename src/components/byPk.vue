@@ -19,8 +19,8 @@
               <div class="two">
                 <img src="../../static/img/nan.png" v-if="pkFromData.sex===1" alt />
                 <img src="../../static/img/nv.png" v-if="pkFromData.sex===2" alt />
-                <span class="audience">{{pkFromData.fans_num}}粉丝</span>
-                <span class="yinlang">{{pkFromData.vote_total}}累计海螺</span>
+                <span class="audience">{{pkFromData.fans_num||0}}粉丝</span>
+                <span class="yinlang">{{pkFromData.vote_total||0}}累计海螺</span>
               </div>
             </div>
           </div>
@@ -61,7 +61,7 @@ export default {
     },
     // 倒计时
     countDown() {
-      this.countDownNum = this.pkFromData.pktime;
+      this.countDownNum = 10;
       this.timer = setInterval(() => {
         if (this.countDownNum > 0) {
           this.countDownNum--;
@@ -87,7 +87,7 @@ export default {
             user_nicename: this.pkFromData.user_nicename, // 请求方主播昵称
             quid: this.pkFromData.quid, // 请求方主播id
             buid: this.pkFromData.buid, // 应答方主播id
-            pktime: 6 // pk时长
+            pktime: this.pkFromData.pktime // pk时长
           }
         ]
       };
@@ -110,7 +110,7 @@ export default {
             user_nicename: this.pkFromData.user_nicename, // 请求方主播昵称
             quid: this.pkFromData.quid, // 请求方主播id
             buid: this.pkFromData.buid, // 应答方主播id
-            pktime: 6 // pk时长
+            pktime: this.pkFromData.pktime // pk时长
           }
         ]
       };
@@ -123,7 +123,7 @@ export default {
       this.show = false;
 
       const _this = this;
-      let json = { quid: this.pkFromData.quid, buid: this.pkFromData.buid };
+      let json = { quid: this.pkFromData.quid, buid: this.pkFromData.buid, pk_time: this.pkFromData.pktime };
       _this.axios
         .post(api.show_agree_pk, this.$qs.stringify(json))
         .then(function(res) {
@@ -151,7 +151,7 @@ export default {
             user_nicename: this.pkFromData.user_nicename, // 请求方主播昵称
             quid: this.pkFromData.quid, // 请求方主播id
             buid: this.pkFromData.buid, // 应答方主播id
-            pktime: 6 // pk时长
+            pktime: this.pkFromData.pktime // pk时长
           }
         ]
       };

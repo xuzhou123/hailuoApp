@@ -54,6 +54,13 @@
         </ul>
       </div>
     </div>
+    <!-- pk时长选择 -->
+    <div class="fixed-box select-pk-time" v-if="show==='2'">
+      <div class="title">选择PK时长(分钟)</div>
+      <div class="container">
+        <div class="time" v-for="item in pkTimeLists" :key="item.id" @click="goPk(item.minute)">{{item.minute}}</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -75,7 +82,9 @@ export default {
       recommend: [], //推荐的主播
       searchVal: "", // 搜索值
       searchLists: [],
-      liveCt: {}
+      liveCt: {},
+      pkObj: {},
+      pkTimeLists: []
     };
   },
   mounted() {},
@@ -124,6 +133,25 @@ export default {
     },
     // 邀请pk
     invitationPk(item) {
+      this.pkObj = item;
+      this.selectPkTime();
+    },
+    // 选择时长
+    selectPkTime() {
+      var _this=this;
+      _this.show='';
+      _this.axios.get(api.show_pk_minute_list)
+      .then(function(res){
+        if(res.data.state==0){
+          _this.pkTimeLists = res.data.content;
+          _this.show='2';
+        }else{
+          _this.showM(res.data.msg);
+        }
+      })
+    },
+    // 发起pk
+    goPk(pkTime) {
       this.show='';
       let val = {
         retcode: "000000",
@@ -133,11 +161,11 @@ export default {
             _method_: "testlink",
             action: 1, // 1请求pk 5同意pk 6拒绝pk 7主播正在忙碌未应答 8展示PK样式 pk倒计时 9 关闭窗口
             msgtype: 10,
-            roomnum: item.id, // 应答方主播房间号=应答方主播id
+            roomnum: this.pkObj.id, // 应答方主播房间号=应答方主播id
             user_nicename: this.liveCt.user_nicename, // 请求方主播昵称
             quid: this.liveCt.uid, // 请求方主播id
-            buid: item.id, // 应答方主播id
-            pktime: 6, // pk时长
+            buid: this.pkObj.id, // 应答方主播id
+            pktime: pkTime, // pk时长
             avatar: this.liveCt.avatar, //请求方头像
             sex: this.liveCt.sex, //请求方性别
             vote_total: this.liveCt.vote_total, //请求方累计海螺
@@ -323,6 +351,33 @@ export default {
             }
           }
         }
+      }
+    }
+  }
+  .select-pk-time {
+    background: #fff;
+    border-radius: 0.4rem 0.4rem 0 0;
+    .title {
+      position: relative;
+      height: 1rem;
+      text-align: center;
+      line-height: 1rem;
+      color: #000;
+      font-weight: 700;
+      border-bottom: 0.001rem solid #eee;
+    }
+    .container {
+      height: 7rem;
+      overflow: auto;
+      .time {
+        width: 23.75vw;
+        height: 0.7rem;
+        line-height: 0.7rem;
+        margin: 1vw 0 0 1vw;
+        background:#326aff;
+        color: #fff;
+        text-align: center;
+        float: left;
       }
     }
   }
