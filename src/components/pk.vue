@@ -58,7 +58,7 @@
           <img v-if="pk_room_data.win_id==liveCt.uid" src="../../static/img/victory1.png" alt="">
           <img v-if="pk_room_data.win_id!=liveCt.uid" src="../../static/img/fail1.png" alt="">
         </div>
-        <div class="pk-room-result" v-else-if="['04:59','04:58','04:57','04:56','04:55'].includes(pk_room_data.pk_stime)">
+        <div class="pk-room-result" v-else-if="pk_room_data.room_state=='start'">
           <img src="../../static/img/start-pk.png" alt="">
         </div>
       </div>
