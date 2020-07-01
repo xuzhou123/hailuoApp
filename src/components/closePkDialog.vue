@@ -72,8 +72,8 @@ export default {
       }
       .close-pk {
         width: 4rem;
-        height: 1rem;
-        line-height: 1rem;
+        height: 0.7rem;
+        line-height: 0.7rem;
         text-align: center;
         background: #326aff;
         color: #fff;
